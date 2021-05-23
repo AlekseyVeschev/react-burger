@@ -1,0 +1,8 @@
+.root{
+  max-width: 1240px;
+  margin: 0 auto;
+   }
+.wrapper{
+   display: flex;
+   justify-content: space-between;
+  }

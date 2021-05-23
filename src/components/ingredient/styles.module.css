@@ -1,0 +1,14 @@
+.root{
+   width: 272px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   position: relative;
+ }
+ .currency{
+   display: flex;
+ }
+ .image{
+   max-width:240px;
+   max-height:120px;
+ }
