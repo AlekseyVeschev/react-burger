@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './styles.module.css'
 
-export const Ingredient = ({ price, name, img, count }: any) => {
+export const Ingredient = ({ name, price, img, count }) => {
    return (
-      <section className={`${styles.root}`}>
+      <li className={`${styles.root}`}>
          <img src={img} alt="" className={styles.image} />
          <div className={`${styles.currency} p-2`}>
             <div className='pr-2' >
@@ -15,6 +16,13 @@ export const Ingredient = ({ price, name, img, count }: any) => {
             {name}
          </div>
          {count !== 0 && <Counter count={count} size="default" />}
-      </section>
+      </li>
    )
 }
+
+Ingredient.price = PropTypes.shape({
+   name: PropTypes.string.isRequired,
+   price: PropTypes.number.isRequired,
+   image: PropTypes.string.isRequired,
+   count: PropTypes.number.isRequired,
+})

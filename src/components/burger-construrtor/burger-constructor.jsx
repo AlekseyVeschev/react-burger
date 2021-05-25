@@ -2,38 +2,51 @@ import { Button, ConstructorElement, DragIcon, CurrencyIcon } from '@ya.praktiku
 import styles from './styles.module.css'
 import PropTypes from 'prop-types';
 
-export const BurgerConstructor = ({ ingredients }: { ingredients: any[] }) => {
+export const BurgerConstructor = ({ ingredients }) => {
 
    const selectedIngredient = ingredients.filter(ing => ing.__v > 0)
+   const firstIngredient = ingredients[0]
+   const lastIngredient = ingredients[ingredients.length - 1]
 
    const sum = selectedIngredient.reduce((acc, ing) => (ing.price * ing.__v) + acc, 0)
 
    return (
-      <main className={styles.root}>
-         {selectedIngredient.map((ing, idx) => {
-            const isFirst = idx === 0;
-            const isLast = idx === selectedIngredient.length - 1;
-
-            return (
-               <div
+      <main>
+         <div className={styles.locked_block}>
+            <ConstructorElement
+               type="top"
+               isLocked={true}
+               text={firstIngredient.name}
+               price={firstIngredient.price}
+               thumbnail={firstIngredient.image}
+            />
+         </div>
+         <ul className={`${styles.wrapper_elements} mt-2 mb-2 pr-2`}>
+            {selectedIngredient.map(ing =>
+               <li
                   key={ing._id}
                   className={styles.element}
                >
-                  {!isFirst && !isLast &&
-                     <div className="mr-3">
-                        <DragIcon type="primary" />
-                     </div>
-                  }
+                  <div className="mr-3">
+                     <DragIcon type="primary" />
+                  </div>
                   <ConstructorElement
-                     type={isFirst ? "top" : isLast ? "bottom" : undefined}
-                     isLocked={isFirst || isLast}
                      text={ing.name}
                      price={ing.price}
                      thumbnail={ing.image}
                   />
-               </div>
-            )
-         })}
+               </li>
+            )}
+         </ul>
+         <div className={styles.locked_block}>
+            <ConstructorElement
+               type="bottom"
+               isLocked={true}
+               text={lastIngredient.name}
+               price={lastIngredient.price}
+               thumbnail={lastIngredient.image}
+            />
+         </div>
          <section className={styles.section}>
             <p className="text text_type_digits-medium">
                {sum}
@@ -66,7 +79,7 @@ export const ingredientPropTypes = PropTypes.shape({
    __v: PropTypes.number.isRequired,
 })
 
-// eslint-disable-next-line react/no-typos
-BurgerConstructor.PropTypes = {
+
+BurgerConstructor.propTypes = {
    ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired)
 };

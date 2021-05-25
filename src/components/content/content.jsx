@@ -1,5 +1,5 @@
-import { BurgerIngredients } from '../burgerIngredients';
-import { BurgerConstructor } from '../burgerConstrurtor';
+import { BurgerIngredients } from '../burger-ingredients/burger-ingredients';
+import { BurgerConstructor } from '../burger-construrtor/burger-constructor';
 import styles from './styles.module.css'
 import { DATA } from '../../utils/data';
 

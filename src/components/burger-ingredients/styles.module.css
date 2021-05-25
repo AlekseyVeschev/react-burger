@@ -1,0 +1,26 @@
+.wrapper_section::-webkit-scrollbar {
+  width: 12px;
+}
+.wrapper_section::-webkit-scrollbar-track {
+  background: #2F2F37;
+}
+.wrapper_section::-webkit-scrollbar-thumb {
+  background: #8585AD;
+  border: 3px solid #2F2F37;
+  border-radius: 6px;
+}
+.root {
+  max-width: 600px;
+}
+ .navbar {
+  display: flex;
+}
+ .wrapper_section {
+  max-height: 760px;
+  overflow: auto;
+}
+ .content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+ }
