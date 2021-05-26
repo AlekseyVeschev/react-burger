@@ -1,0 +1,31 @@
+.wrapper_elements::-webkit-scrollbar {
+  width: 12px;
+}
+.wrapper_elements::-webkit-scrollbar-track {
+  background: #2F2F37;
+}
+.wrapper_elements::-webkit-scrollbar-thumb {
+  background: #8585AD;
+  border: 3px solid #2F2F37;
+  border-radius: 6px;
+}
+.locked_block {
+  margin-left: 32px;
+}
+.wrapper_elements {
+  gap: 10px;
+  display: flex;
+  max-height: 350px;
+  flex-direction: column;
+  overflow: auto;
+  padding-left: 0px;
+}
+.element {
+  display: flex;
+  align-items: center;
+}
+.section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
