@@ -1,0 +1,15 @@
+.root {
+   margin: 0 auto;
+   max-width: 480px;
+   text-align: center;
+   display: flex;
+   flex-direction: column;
+}
+.image {
+   max-height: 240px;
+}
+ .info {
+    display: flex;
+    justify-content: space-between;
+    color: #8585AD;
+ }
