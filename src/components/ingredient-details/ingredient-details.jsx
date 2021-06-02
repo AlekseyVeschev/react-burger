@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { ingredientPropTypes } from '../burger-construrtor/burger-constructor';
 import styles from './styles.module.css'
 
 export const IngredientDetails = ({ img, name, calories, proteins, fat, carbohydrates }) => {
@@ -49,6 +48,11 @@ export const IngredientDetails = ({ img, name, calories, proteins, fat, carbohyd
    );
 }
 
-IngredientDetails.propTypes = {
-   ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired)
-};
+IngredientDetails.propTypes = PropTypes.shape({
+   img: PropTypes.string.isRequired,
+   name: PropTypes.string.isRequired,
+   calories: PropTypes.number.isRequired,
+   proteins: PropTypes.number.isRequired,
+   fat: PropTypes.number.isRequired,
+   carbohydrates: PropTypes.number.isRequired
+}).isRequired

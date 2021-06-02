@@ -10,9 +10,11 @@
   border-radius: 6px;
 }
 .locked_block {
-  margin-left: 32px;
+  display: flex;
+  justify-content: flex-end;
 }
 .wrapper_elements {
+  max-width: 588px;
   gap: 10px;
   display: flex;
   max-height: 350px;
@@ -23,7 +25,8 @@
 .element {
   display: flex;
   align-items: center;
-}
+  justify-content: space-between;
+ }
 .section {
     display: flex;
     align-items: center;

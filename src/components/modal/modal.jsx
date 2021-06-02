@@ -20,7 +20,7 @@ export const Modal = ({ title, onClickCloseButton, ...props }) => {
       </div>
    );
 }
-Modal.prototype = PropTypes.shape({
+Modal.protoType = PropTypes.shape({
    title: PropTypes.string,
    onClickCloseButton: PropTypes.func.isRequired,
 })

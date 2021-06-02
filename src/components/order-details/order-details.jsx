@@ -1,17 +1,19 @@
 import PropTypes from 'prop-types';
-import checkMarkImg from '../../images/done.png'
+import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './styles.module.css'
 
 export const OrderDetails = ({ orderNumber, info, text }) => {
    return (
       <section className={styles.root} >
-         <p className="text text_type_digits-large pb-5">
+         <p className="text text_type_digits-large pb-5 pt-5">
             {orderNumber}
          </p>
          <p className="text text_type_main-medium pt-3 pb-5">
             идентификатор заказа
          </p>
-         <img src={checkMarkImg} alt="img" className={styles.image} />
+         <div className={styles.checkMarkIcon} >
+            < CheckMarkIcon />
+         </div>
          <p className="text text_type_main-default pt-5 pb-2">
             {info}
          </p>
@@ -21,8 +23,8 @@ export const OrderDetails = ({ orderNumber, info, text }) => {
       </section >
    );
 }
-OrderDetails.prototype = PropTypes.shape({
+OrderDetails.protoType = {
    orderNumber: PropTypes.string.isRequired,
    info: PropTypes.string.isRequired,
    text: PropTypes.string.isRequired,
-})
+}

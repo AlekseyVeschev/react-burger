@@ -6,9 +6,10 @@
   margin: 0 auto;
   padding-bottom: 80px;
 }
-.image {
-   height: 120px;
-   padding: 40px;
+.checkMarkIcon {
+   max-width: 120px;
+   max-height: 120px;
+  padding: 60px;
 }
 .button_block {
    color: #8585AD;

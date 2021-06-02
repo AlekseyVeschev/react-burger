@@ -1,11 +1,12 @@
 import { useCallback, useMemo, useState } from 'react'
 import PropTypes from 'prop-types';
+import { ingredientPropTypes } from '../../types/ingredient-props';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { ModalOverlay } from '../modal-overlay/modal-overlay';
 import { IngredientDetails } from '../ingredient-details/ingredient-details';
 import { Ingredient } from '../ingredient/ingredient';
-import { ingredientPropTypes } from '../burger-construrtor/burger-constructor';
 import styles from './styles.module.css'
+
 
 const INGREDIENTS_TYPES = {
    bun: 'bun',
@@ -25,7 +26,7 @@ const INGREDIENTS_TYPES_NAME = {
 
 export const BurgerIngredients = ({ ingredients }) => {
 
-   const [current, setCurrent] = useState(INGREDIENTS_TYPES.bun)
+   const [currentTab, setCurrentTab] = useState(INGREDIENTS_TYPES.bun)
    const [currentId, setCurrentId] = useState("")
    const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -53,27 +54,37 @@ export const BurgerIngredients = ({ ingredients }) => {
       setIsModalOpen(false)
    }, [])
 
+   const setTab = useCallback((currentTab) => {
+      setCurrentTab(currentTab)
+
+      const tab = document.getElementById(currentTab)
+      if (tab) tab.scrollIntoView({ behavior: "smooth" })
+   }, [])
+
    return (
       <main className={styles.root}>
          <nav className={styles.navbar}>
             <Tab
+               id={INGREDIENTS_TYPES.bun}
                value={INGREDIENTS_TYPES.bun}
-               active={current === INGREDIENTS_TYPES.bun}
-               onClick={setCurrent}
+               active={currentTab === INGREDIENTS_TYPES.bun}
+               onClick={setTab}
             >
                Булки
             </Tab>
             <Tab
+               id={INGREDIENTS_TYPES.sauce}
                value={INGREDIENTS_TYPES.sauce}
-               active={current === INGREDIENTS_TYPES.sauce}
-               onClick={setCurrent}
+               active={currentTab === INGREDIENTS_TYPES.sauce}
+               onClick={() => setTab(INGREDIENTS_TYPES.sauce)}
             >
                Соусы
             </Tab>
             <Tab
+               id={INGREDIENTS_TYPES.main}
                value={INGREDIENTS_TYPES.main}
-               active={current === INGREDIENTS_TYPES.main}
-               onClick={setCurrent}
+               active={currentTab === INGREDIENTS_TYPES.main}
+               onClick={setTab}
             >
                Начинки
             </Tab>
@@ -96,7 +107,10 @@ export const BurgerIngredients = ({ ingredients }) => {
             )}
 
             {SORTED_INGREDIENTS_TYPES.map((type) =>
-               <section key={type}>
+               <section
+                  key={type}
+                  id={type}
+               >
                   <h2>{INGREDIENTS_TYPES_NAME[type]}</h2>
                   <ul className={styles.content}>
                      {groupedIngredients[type]?.map(ing =>
@@ -119,5 +133,5 @@ export const BurgerIngredients = ({ ingredients }) => {
 }
 
 BurgerIngredients.propTypes = {
-   ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired)
+   ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
 };

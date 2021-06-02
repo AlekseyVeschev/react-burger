@@ -6,12 +6,12 @@ import { Content } from '../content/content'
 export const App = () => {
 
   const [ingredients, setIngredients] = useState([])
-  const [error, setErrore] = useState('')
+  const [error, setError] = useState('')
 
   useEffect(() => {
     Api.getIngredients()
       .then((data) => setIngredients(data))
-      .catch(error => setErrore(error.message))
+      .catch(error => setError(error.message))
   }, [])
 
   return (

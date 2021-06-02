@@ -7,14 +7,16 @@ import styles from './styles.module.css'
 export const ModalOverlay = ({ title, onClose, ...props }) => {
 
    useEffect(() => {
-      document.addEventListener("keydown", e => {
+      const handleESCclose = (e) => {
          if (e.code === "Escape") {
             onClose()
          }
-         return () => {
-            document.removeEventListener("keydown", onClose())
-         }
-      })
+      }
+      document.addEventListener("keydown", handleESCclose)
+
+      return () => {
+         document.removeEventListener("keydown", handleESCclose)
+      }
    }, [onClose])
 
    return createPortal(
@@ -33,7 +35,7 @@ export const ModalOverlay = ({ title, onClose, ...props }) => {
       document.getElementById('react-modals')
    )
 }
-ModalOverlay.prototype = PropTypes.shape({
+ModalOverlay.protoType = PropTypes.shape({
    title: PropTypes.string,
    onClose: PropTypes.func.isRequired,
 })
