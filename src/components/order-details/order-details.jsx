@@ -23,7 +23,7 @@ export const OrderDetails = ({ orderNumber, info, text }) => {
       </section >
    );
 }
-OrderDetails.protoType = {
+OrderDetails.propTypes = {
    orderNumber: PropTypes.string.isRequired,
    info: PropTypes.string.isRequired,
    text: PropTypes.string.isRequired,

@@ -35,7 +35,7 @@ export const ModalOverlay = ({ title, onClose, ...props }) => {
       document.getElementById('react-modals')
    )
 }
-ModalOverlay.protoType = PropTypes.shape({
+ModalOverlay.propTypes = {
    title: PropTypes.string,
-   onClose: PropTypes.func.isRequired,
-})
+   onClose: PropTypes.func
+}

@@ -76,7 +76,7 @@ export const BurgerIngredients = ({ ingredients }) => {
                id={INGREDIENTS_TYPES.sauce}
                value={INGREDIENTS_TYPES.sauce}
                active={currentTab === INGREDIENTS_TYPES.sauce}
-               onClick={() => setTab(INGREDIENTS_TYPES.sauce)}
+               onClick={setTab}
             >
                Соусы
             </Tab>
