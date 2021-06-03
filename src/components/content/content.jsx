@@ -1,18 +1,23 @@
+import PropTypes from 'prop-types';
+import { ingredientPropTypes } from '../../types/ingredient-props';
 import { BurgerIngredients } from '../burger-ingredients/burger-ingredients';
 import { BurgerConstructor } from '../burger-construrtor/burger-constructor';
 import styles from './styles.module.css'
-import { DATA } from '../../utils/data';
 
-
-export const Content = () => {
+export const Content = ({ ingredients }) => {
   return (
-    <div className={`${styles.root} pl-1 pr-1`}>
-      <h1>Соберите бургер</h1>
+    <div className={`${styles.root} pl-1 pr-1 pt-5`}>
+      <p className="text text_type_main-large pt-5 pb-5">
+        Соберите бургер
+      </p>
       <div className={styles.wrapper}>
-        <BurgerIngredients ingredients={DATA} />
-        <BurgerConstructor ingredients={DATA} />
+        <BurgerIngredients ingredients={ingredients} />
+        <BurgerConstructor ingredients={ingredients} />
       </div>
     </div>
   );
 }
 
+Content.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
+};

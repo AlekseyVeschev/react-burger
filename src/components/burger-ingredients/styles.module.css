@@ -16,7 +16,7 @@
   display: flex;
 }
  .wrapper_section {
-  max-height: 760px;
+  max-height: 740px;
   overflow: auto;
 }
  .content {

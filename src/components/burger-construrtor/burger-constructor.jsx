@@ -1,33 +1,58 @@
-import { Button, ConstructorElement, DragIcon, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import styles from './styles.module.css'
+import { useCallback, useState, useMemo } from 'react'
 import PropTypes from 'prop-types';
+import { ingredientPropTypes } from '../../types/ingredient-props';
+import { ORDER } from '../../utils/constants';
+import { Button, ConstructorElement, DragIcon, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { OrderDetails } from '../order-details/order-details';
+import { ModalOverlay } from '../modal-overlay/modal-overlay';
+import styles from './styles.module.css'
 
 export const BurgerConstructor = ({ ingredients }) => {
 
-   const selectedIngredient = ingredients.filter(ing => ing.__v > 0)
-   const firstIngredient = ingredients[0]
-   const lastIngredient = ingredients[ingredients.length - 1]
+   const [isModalOpen, setIsModalOpen] = useState(false)
 
-   const sum = selectedIngredient.reduce((acc, ing) => (ing.price * ing.__v) + acc, 0)
+   const ingredientTypeBun = useMemo(
+      () => ingredients.find(ing => ing.type === "bun"),
+      [ingredients]
+   )
+
+   const openConstructorModal = useCallback(() => {
+      setIsModalOpen(true)
+   }, [])
+   const closeConstructorModal = useCallback(() => {
+      setIsModalOpen(false)
+   }, [])
 
    return (
       <main>
-         <div className={styles.locked_block}>
-            <ConstructorElement
-               type="top"
-               isLocked={true}
-               text={firstIngredient.name}
-               price={firstIngredient.price}
-               thumbnail={firstIngredient.image}
-            />
-         </div>
+         {isModalOpen && (
+            <ModalOverlay onClose={closeConstructorModal}>
+               <OrderDetails
+                  orderNumber={ORDER.orederNumber}
+                  info={ORDER.info}
+                  text={ORDER.text}
+               />
+            </ModalOverlay>
+         )}
+
+         {!!ingredientTypeBun && (
+            <div className={`${styles.locked_block} mr-5`}>
+               <ConstructorElement
+                  type="top"
+                  isLocked={true}
+                  text={ingredientTypeBun.name}
+                  price={ingredientTypeBun.price}
+                  thumbnail={ingredientTypeBun.image}
+               />
+            </div>
+         )}
          <ul className={`${styles.wrapper_elements} mt-2 mb-2 pr-2`}>
-            {selectedIngredient.map(ing =>
+            {ingredients.map(ing =>
                <li
                   key={ing._id}
                   className={styles.element}
                >
-                  <div className="mr-3">
+                  <div className="ml-4 mr-3">
                      <DragIcon type="primary" />
                   </div>
                   <ConstructorElement
@@ -38,24 +63,30 @@ export const BurgerConstructor = ({ ingredients }) => {
                </li>
             )}
          </ul>
-         <div className={styles.locked_block}>
-            <ConstructorElement
-               type="bottom"
-               isLocked={true}
-               text={lastIngredient.name}
-               price={lastIngredient.price}
-               thumbnail={lastIngredient.image}
-            />
-         </div>
+         {!!ingredientTypeBun && (
+            <div className={`${styles.locked_block} mr-5`}>
+               <ConstructorElement
+                  type="bottom"
+                  isLocked={true}
+                  text={ingredientTypeBun.name}
+                  price={ingredientTypeBun.price}
+                  thumbnail={ingredientTypeBun.image}
+               />
+            </div>
+         )}
          <section className={styles.section}>
             <p className="text text_type_digits-medium">
-               {sum}
+               {ORDER.summa}
             </p>
             <div className="m-5">
                <CurrencyIcon type="primary" />
             </div>
             <div className="m-5 mr-1">
-               <Button type="primary" size="large">
+               <Button
+                  type="primary"
+                  size="large"
+                  onClick={openConstructorModal}
+               >
                   Оформить заказ
                </Button>
             </div>
@@ -64,22 +95,6 @@ export const BurgerConstructor = ({ ingredients }) => {
    )
 }
 
-export const ingredientPropTypes = PropTypes.shape({
-   _id: PropTypes.string.isRequired,
-   name: PropTypes.string.isRequired,
-   type: PropTypes.string.isRequired,
-   proteins: PropTypes.number.isRequired,
-   fat: PropTypes.number.isRequired,
-   carbohydrates: PropTypes.number.isRequired,
-   calories: PropTypes.number.isRequired,
-   price: PropTypes.number.isRequired,
-   image: PropTypes.string.isRequired,
-   image_mobile: PropTypes.string.isRequired,
-   image_large: PropTypes.string.isRequired,
-   __v: PropTypes.number.isRequired,
-})
-
-
 BurgerConstructor.propTypes = {
-   ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired)
+   ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
 };
