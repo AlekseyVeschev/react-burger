@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Api } from '../api';
+import { Api } from '../../utils/api';
 import { AppHeader } from '../app-header/app-header';
 import { Content } from '../content/content'
 
