@@ -30,11 +30,11 @@ export const Ingredient = ({ id, name, price, img, count, onClick }) => {
    )
 }
 
-Ingredient.propTypes = PropTypes.shape({
+Ingredient.propTypes = {
    id: PropTypes.string.isRequired,
    name: PropTypes.string.isRequired,
    price: PropTypes.number.isRequired,
    image: PropTypes.string.isRequired,
    count: PropTypes.number.isRequired,
    onClick: PropTypes.func.isRequired
-}).isRequired
+}

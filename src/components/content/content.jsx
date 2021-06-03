@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+import { ingredientPropTypes } from '../../types/ingredient-props';
 import { BurgerIngredients } from '../burger-ingredients/burger-ingredients';
 import { BurgerConstructor } from '../burger-construrtor/burger-constructor';
 import styles from './styles.module.css'
@@ -15,3 +17,7 @@ export const Content = ({ ingredients }) => {
     </div>
   );
 }
+
+Content.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
+};

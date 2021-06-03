@@ -48,11 +48,11 @@ export const IngredientDetails = ({ img, name, calories, proteins, fat, carbohyd
    );
 }
 
-IngredientDetails.propTypes = PropTypes.shape({
+IngredientDetails.propTypes = {
    img: PropTypes.string.isRequired,
    name: PropTypes.string.isRequired,
    calories: PropTypes.number.isRequired,
    proteins: PropTypes.number.isRequired,
    fat: PropTypes.number.isRequired,
    carbohydrates: PropTypes.number.isRequired
-}).isRequired
+}
