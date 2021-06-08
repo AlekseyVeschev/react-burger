@@ -1,53 +1,80 @@
-import { useCallback, useState, useMemo } from 'react'
-import PropTypes from 'prop-types';
-import { ingredientPropTypes } from '../../types/ingredient-props';
-import { ORDER } from '../../utils/constants';
+import { useCallback, useState, useContext, useMemo } from 'react'
+import { Api } from '../../utils/api';
+import { IngredientsContext, OrderContext } from '../app/app';
 import { Button, ConstructorElement, DragIcon, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { OrderDetails } from '../order-details/order-details';
 import { ModalOverlay } from '../modal-overlay/modal-overlay';
 import styles from './styles.module.css'
 
-export const BurgerConstructor = ({ ingredients }) => {
+
+export const BurgerConstructor = () => {
 
    const [isModalOpen, setIsModalOpen] = useState(false)
+   const [error, setError] = useState("")
 
+   const ingredients = useContext(IngredientsContext)
+   const [orderNumber, setOrderNumber] = useContext(OrderContext)
+
+   const selectionIngredients = useMemo(
+      () => ingredients.filter(ing => ing.type !== "bun"),
+      [ingredients]
+   )
    const ingredientTypeBun = useMemo(
       () => ingredients.find(ing => ing.type === "bun"),
       [ingredients]
    )
-
-   const openConstructorModal = useCallback(() => {
-      setIsModalOpen(true)
-   }, [])
+   const sumBun = useMemo(() =>
+      ingredientTypeBun && ingredientTypeBun.price * 2,
+      [ingredientTypeBun]
+   )
+   const sumBurger = useMemo(() =>
+      selectionIngredients.reduce((sum, ing) => sum + ing.price, sumBun),
+      [selectionIngredients, sumBun]
+   )
+   const IdIngredients = useMemo(
+      () => ingredients.map(ing => ing._id),
+      [ingredients]
+   )
    const closeConstructorModal = useCallback(() => {
       setIsModalOpen(false)
    }, [])
 
+   const handleOnClick = useCallback(() => {
+      Api.createOrder(IdIngredients)
+         .then(setError(""))
+         .then(data => setOrderNumber(data.order.number))
+         .then(setIsModalOpen(true))
+         .catch(error => setError(error.message))
+   }, [IdIngredients, setOrderNumber])
+
    return (
       <main>
-         {isModalOpen && (
-            <ModalOverlay onClose={closeConstructorModal}>
-               <OrderDetails
-                  orderNumber={ORDER.orederNumber}
-                  info={ORDER.info}
-                  text={ORDER.text}
-               />
-            </ModalOverlay>
-         )}
+         {!error
+            ? (isModalOpen && (
+               <ModalOverlay onClose={closeConstructorModal}>
+                  <OrderDetails
+                     orderNumber={orderNumber}
+                     info=" Ваш заказ начали готовить"
+                     text=" Дождитесь готовности на орбитальной станции"
+                  />
+               </ModalOverlay>
+            ))
+            : `Ошибка: ${error}`
+         }
 
          {!!ingredientTypeBun && (
             <div className={`${styles.locked_block} mr-5`}>
                <ConstructorElement
                   type="top"
                   isLocked={true}
-                  text={ingredientTypeBun.name}
+                  text={`${ingredientTypeBun.name} (верх)`}
                   price={ingredientTypeBun.price}
                   thumbnail={ingredientTypeBun.image}
                />
             </div>
          )}
          <ul className={`${styles.wrapper_elements} mt-2 mb-2 pr-2`}>
-            {ingredients.map(ing =>
+            {selectionIngredients && selectionIngredients.map(ing =>
                <li
                   key={ing._id}
                   className={styles.element}
@@ -68,7 +95,7 @@ export const BurgerConstructor = ({ ingredients }) => {
                <ConstructorElement
                   type="bottom"
                   isLocked={true}
-                  text={ingredientTypeBun.name}
+                  text={`${ingredientTypeBun.name} (низ)`}
                   price={ingredientTypeBun.price}
                   thumbnail={ingredientTypeBun.image}
                />
@@ -76,7 +103,7 @@ export const BurgerConstructor = ({ ingredients }) => {
          )}
          <section className={styles.section}>
             <p className="text text_type_digits-medium">
-               {ORDER.summa}
+               {sumBurger}
             </p>
             <div className="m-5">
                <CurrencyIcon type="primary" />
@@ -85,7 +112,7 @@ export const BurgerConstructor = ({ ingredients }) => {
                <Button
                   type="primary"
                   size="large"
-                  onClick={openConstructorModal}
+                  onClick={handleOnClick}
                >
                   Оформить заказ
                </Button>
@@ -94,7 +121,3 @@ export const BurgerConstructor = ({ ingredients }) => {
       </main>
    )
 }
-
-BurgerConstructor.propTypes = {
-   ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
-};

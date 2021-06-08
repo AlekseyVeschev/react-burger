@@ -12,7 +12,7 @@ export const Content = ({ ingredients }) => {
       </p>
       <div className={styles.wrapper}>
         <BurgerIngredients ingredients={ingredients} />
-        <BurgerConstructor ingredients={ingredients} />
+        <BurgerConstructor />
       </div>
     </div>
   );
