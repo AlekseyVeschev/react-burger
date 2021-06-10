@@ -1,30 +1,18 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState, useContext } from 'react'
 import PropTypes from 'prop-types';
+import { INGREDIENTS_TYPES, INGREDIENTS_TYPES_NAME, SORTED_INGREDIENTS_TYPES } from '../../utils/constants';
 import { ingredientPropTypes } from '../../types/ingredient-props';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { ModalOverlay } from '../modal-overlay/modal-overlay';
 import { IngredientDetails } from '../ingredient-details/ingredient-details';
 import { Ingredient } from '../ingredient/ingredient';
 import styles from './styles.module.css'
+import { IngredientsContext } from '../app/app';
 
-
-const INGREDIENTS_TYPES = {
-   bun: 'bun',
-   sauce: 'sauce',
-   main: 'main',
-}
-const SORTED_INGREDIENTS_TYPES = [
-   INGREDIENTS_TYPES.bun,
-   INGREDIENTS_TYPES.sauce,
-   INGREDIENTS_TYPES.main
-]
-const INGREDIENTS_TYPES_NAME = {
-   [INGREDIENTS_TYPES.bun]: "Булки",
-   [INGREDIENTS_TYPES.sauce]: "Соусы",
-   [INGREDIENTS_TYPES.main]: "Начинки",
-}
 
 export const BurgerIngredients = ({ ingredients }) => {
+
+   const { dispatch } = useContext(IngredientsContext);
 
    const [currentTab, setCurrentTab] = useState(INGREDIENTS_TYPES.bun)
    const [currentId, setCurrentId] = useState("")
@@ -45,10 +33,14 @@ export const BurgerIngredients = ({ ingredients }) => {
       [ingredients, currentId]
    )
 
-   const openIngredientModal = useCallback((id) => {
+   const openIngredientModal = useCallback(({ id, price, type }) => {
+      dispatch({
+         type: "setSelectedIngredient",
+         payload: { id: id, price: price, type: type }
+      })
       setCurrentId(id)
       setIsModalOpen(true)
-   }, [])
+   }, [dispatch])
 
    const closeIngredientModal = useCallback(() => {
       setIsModalOpen(false)
@@ -117,6 +109,7 @@ export const BurgerIngredients = ({ ingredients }) => {
                         <Ingredient
                            key={ing._id}
                            id={ing._id}
+                           type={ing.type}
                            name={ing.name}
                            img={ing.image}
                            price={ing.price}

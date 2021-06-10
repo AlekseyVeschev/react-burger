@@ -4,11 +4,11 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import styles from './styles.module.css'
 
 
-export const Ingredient = ({ id, name, price, img, count, onClick }) => {
+export const Ingredient = ({ id, name, type, price, img, count, onClick }) => {
 
    const handlelClick = useCallback(() => {
-      onClick(id)
-   }, [onClick, id])
+      onClick({ id, price, type })
+   }, [onClick, id, price, type])
 
    return (
       <li
@@ -33,6 +33,7 @@ export const Ingredient = ({ id, name, price, img, count, onClick }) => {
 Ingredient.propTypes = {
    id: PropTypes.string.isRequired,
    name: PropTypes.string.isRequired,
+   type: PropTypes.string.isRequired,
    price: PropTypes.number.isRequired,
    img: PropTypes.string.isRequired,
    count: PropTypes.number.isRequired,

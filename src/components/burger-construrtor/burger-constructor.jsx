@@ -12,40 +12,50 @@ export const BurgerConstructor = () => {
    const [isModalOpen, setIsModalOpen] = useState(false)
    const [error, setError] = useState("")
 
-   const ingredients = useContext(IngredientsContext)
+   const { state, dispatch } = useContext(IngredientsContext)
+   const { ingredients, bunId, selectedIngredientsIds, bunsSum, ingredientsSum } = state
    const [orderNumber, setOrderNumber] = useContext(OrderContext)
 
-   const selectionIngredients = useMemo(
-      () => ingredients.filter(ing => ing.type !== "bun"),
-      [ingredients]
-   )
    const ingredientTypeBun = useMemo(
-      () => ingredients.find(ing => ing.type === "bun"),
-      [ingredients]
+      () => ingredients.find(ing => ing._id === bunId),
+      [ingredients, bunId]
    )
-   const sumBun = useMemo(() =>
-      ingredientTypeBun && ingredientTypeBun.price * 2,
-      [ingredientTypeBun]
+   const selectionIngredients = useMemo(
+      () => {
+         const result = [];
+         selectedIngredientsIds.forEach(id =>
+            ingredients.forEach(ing => {
+               if (ing._id === id) {
+                  result.push(ing)
+               }
+            })
+         )
+         return result
+      },
+      [selectedIngredientsIds, ingredients]
    )
-   const sumBurger = useMemo(() =>
-      selectionIngredients.reduce((sum, ing) => sum + ing.price, sumBun),
-      [selectionIngredients, sumBun]
-   )
-   const IdIngredients = useMemo(
-      () => ingredients.map(ing => ing._id),
-      [ingredients]
-   )
+   const handleClose = useCallback(({ idx, price }) => {
+      dispatch({ type: "removeIngredient", payload: { idx, price } })
+   }, [dispatch])
+
    const closeConstructorModal = useCallback(() => {
       setIsModalOpen(false)
    }, [])
 
-   const handleOnClick = useCallback(() => {
-      Api.createOrder(IdIngredients)
-         .then(setError(""))
-         .then(data => setOrderNumber(data.order.number))
-         .then(setIsModalOpen(true))
-         .catch(error => setError(error.message))
-   }, [IdIngredients, setOrderNumber])
+   const handleOnClick = useCallback(
+      () => {
+         if (ingredientTypeBun) {
+            Api.createOrder([...selectedIngredientsIds, bunId])
+               .then((data) => {
+                  setError("");
+                  setOrderNumber(data.order.number)
+                  setIsModalOpen(true)
+               })
+               .catch(error => setError(error.message))
+         }
+      },
+      [setOrderNumber, selectedIngredientsIds, ingredientTypeBun, bunId]
+   )
 
    return (
       <main>
@@ -74,9 +84,9 @@ export const BurgerConstructor = () => {
             </div>
          )}
          <ul className={`${styles.wrapper_elements} mt-2 mb-2 pr-2`}>
-            {selectionIngredients && selectionIngredients.map(ing =>
+            {selectionIngredients && selectionIngredients.map((ing, idx) =>
                <li
-                  key={ing._id}
+                  key={`${ing._id}-${idx}`}
                   className={styles.element}
                >
                   <div className="ml-4 mr-3">
@@ -86,6 +96,7 @@ export const BurgerConstructor = () => {
                      text={ing.name}
                      price={ing.price}
                      thumbnail={ing.image}
+                     handleClose={() => handleClose({ idx: idx, price: ing.price })}
                   />
                </li>
             )}
@@ -103,7 +114,7 @@ export const BurgerConstructor = () => {
          )}
          <section className={styles.section}>
             <p className="text text_type_digits-medium">
-               {sumBurger}
+               {ingredientsSum + bunsSum}
             </p>
             <div className="m-5">
                <CurrencyIcon type="primary" />
