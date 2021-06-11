@@ -1,55 +1,92 @@
-import { useCallback, useState, useMemo } from 'react'
-import PropTypes from 'prop-types';
-import { ingredientPropTypes } from '../../types/ingredient-props';
-import { ORDER } from '../../utils/constants';
+import { useCallback, useState, useContext, useMemo } from 'react'
+import { Api } from '../../utils/api';
+import { IngredientsContext, OrderContext } from '../app/app';
 import { Button, ConstructorElement, DragIcon, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { OrderDetails } from '../order-details/order-details';
 import { ModalOverlay } from '../modal-overlay/modal-overlay';
 import styles from './styles.module.css'
 
-export const BurgerConstructor = ({ ingredients }) => {
+
+export const BurgerConstructor = () => {
 
    const [isModalOpen, setIsModalOpen] = useState(false)
+   const [error, setError] = useState("")
+
+   const { state, dispatch } = useContext(IngredientsContext)
+   const { ingredients, bunId, selectedIngredientsIds, bunsSum, ingredientsSum } = state
+   const [orderNumber, setOrderNumber] = useContext(OrderContext)
 
    const ingredientTypeBun = useMemo(
-      () => ingredients.find(ing => ing.type === "bun"),
-      [ingredients]
+      () => ingredients.find(ing => ing._id === bunId),
+      [ingredients, bunId]
    )
+   const selectionIngredients = useMemo(
+      () => {
+         const result = [];
+         selectedIngredientsIds.forEach(id =>
+            ingredients.forEach(ing => {
+               if (ing._id === id) {
+                  result.push(ing)
+               }
+            })
+         )
+         return result
+      },
+      [selectedIngredientsIds, ingredients]
+   )
+   const handleClose = useCallback(({ idx, price }) => {
+      dispatch({ type: "removeIngredient", payload: { idx, price } })
+   }, [dispatch])
 
-   const openConstructorModal = useCallback(() => {
-      setIsModalOpen(true)
-   }, [])
    const closeConstructorModal = useCallback(() => {
       setIsModalOpen(false)
    }, [])
 
+   const handleOnClick = useCallback(
+      () => {
+         if (ingredientTypeBun) {
+            Api.createOrder([...selectedIngredientsIds, bunId])
+               .then((data) => {
+                  setError("");
+                  setOrderNumber(data.order.number)
+                  setIsModalOpen(true)
+               })
+               .catch(error => setError(error.message))
+         }
+      },
+      [setOrderNumber, selectedIngredientsIds, ingredientTypeBun, bunId]
+   )
+
    return (
       <main>
-         {isModalOpen && (
-            <ModalOverlay onClose={closeConstructorModal}>
-               <OrderDetails
-                  orderNumber={ORDER.orederNumber}
-                  info={ORDER.info}
-                  text={ORDER.text}
-               />
-            </ModalOverlay>
-         )}
+         {!error
+            ? (isModalOpen && (
+               <ModalOverlay onClose={closeConstructorModal}>
+                  <OrderDetails
+                     orderNumber={orderNumber}
+                     info=" Ваш заказ начали готовить"
+                     text=" Дождитесь готовности на орбитальной станции"
+                  />
+               </ModalOverlay>
+            ))
+            : `Ошибка: ${error}`
+         }
 
          {!!ingredientTypeBun && (
             <div className={`${styles.locked_block} mr-5`}>
                <ConstructorElement
                   type="top"
                   isLocked={true}
-                  text={ingredientTypeBun.name}
+                  text={`${ingredientTypeBun.name} (верх)`}
                   price={ingredientTypeBun.price}
                   thumbnail={ingredientTypeBun.image}
                />
             </div>
          )}
          <ul className={`${styles.wrapper_elements} mt-2 mb-2 pr-2`}>
-            {ingredients.map(ing =>
+            {selectionIngredients && selectionIngredients.map((ing, idx) =>
                <li
-                  key={ing._id}
+                  key={`${ing._id}-${idx}`}
                   className={styles.element}
                >
                   <div className="ml-4 mr-3">
@@ -59,6 +96,7 @@ export const BurgerConstructor = ({ ingredients }) => {
                      text={ing.name}
                      price={ing.price}
                      thumbnail={ing.image}
+                     handleClose={() => handleClose({ idx: idx, price: ing.price })}
                   />
                </li>
             )}
@@ -68,7 +106,7 @@ export const BurgerConstructor = ({ ingredients }) => {
                <ConstructorElement
                   type="bottom"
                   isLocked={true}
-                  text={ingredientTypeBun.name}
+                  text={`${ingredientTypeBun.name} (низ)`}
                   price={ingredientTypeBun.price}
                   thumbnail={ingredientTypeBun.image}
                />
@@ -76,7 +114,7 @@ export const BurgerConstructor = ({ ingredients }) => {
          )}
          <section className={styles.section}>
             <p className="text text_type_digits-medium">
-               {ORDER.summa}
+               {ingredientsSum + bunsSum}
             </p>
             <div className="m-5">
                <CurrencyIcon type="primary" />
@@ -85,7 +123,7 @@ export const BurgerConstructor = ({ ingredients }) => {
                <Button
                   type="primary"
                   size="large"
-                  onClick={openConstructorModal}
+                  onClick={handleOnClick}
                >
                   Оформить заказ
                </Button>
@@ -94,7 +132,3 @@ export const BurgerConstructor = ({ ingredients }) => {
       </main>
    )
 }
-
-BurgerConstructor.propTypes = {
-   ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
-};

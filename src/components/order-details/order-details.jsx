@@ -24,7 +24,7 @@ export const OrderDetails = ({ orderNumber, info, text }) => {
    );
 }
 OrderDetails.propTypes = {
-   orderNumber: PropTypes.string.isRequired,
+   orderNumber: PropTypes.number.isRequired,
    info: PropTypes.string.isRequired,
    text: PropTypes.string.isRequired,
 }
