@@ -1,21 +1,34 @@
-import { useCallback } from 'react';
-import PropTypes from 'prop-types';
+import { useCallback } from 'react'
+import { useDrag } from 'react-dnd'
+import { TYPES_DND } from '../../utils/constants'
+import PropTypes from 'prop-types'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './styles.module.css'
 
+export const Ingredient = ({ ing, onClick }) => {
 
-export const Ingredient = ({ id, name, type, price, img, count, onClick }) => {
+   const { name, price, image, count } = ing
+
+   const [{ opacity }, dragRef] = useDrag({
+      type: TYPES_DND.ingredients,
+      item: ing,
+      collect: monitor => ({
+         opacity: monitor.isDragging() ? 0.5 : 1
+      })
+   })
 
    const handlelClick = useCallback(() => {
-      onClick({ id, price, type })
-   }, [onClick, id, price, type])
+      onClick(ing)
+   }, [onClick, ing])
 
    return (
       <li
+         style={{ opacity }}
+         ref={dragRef}
          className={`${styles.root}`}
          onClick={handlelClick}
       >
-         <img src={img} alt="img" className={styles.image} />
+         <img src={image} alt="img" className={styles.image} />
          <div className={`${styles.currency} p-2`}>
             <div className='pr-2' >
                {price}
@@ -25,17 +38,16 @@ export const Ingredient = ({ id, name, type, price, img, count, onClick }) => {
          <div className='name p-5 pt-1'>
             {name}
          </div>
-         {count !== 0 && <Counter count={count} size="default" />}
+         {count && <Counter count={count} size="default" />}
       </li>
    )
 }
 
-Ingredient.propTypes = {
-   id: PropTypes.string.isRequired,
+Ingredient.propTypes = PropTypes.shape({
    name: PropTypes.string.isRequired,
-   type: PropTypes.string.isRequired,
    price: PropTypes.number.isRequired,
    img: PropTypes.string.isRequired,
    count: PropTypes.number.isRequired,
+   type: PropTypes.number.isRequired,
    onClick: PropTypes.func.isRequired
-}
+}).isRequired

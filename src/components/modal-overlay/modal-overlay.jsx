@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import { createPortal } from 'react-dom';
-import PropTypes from 'prop-types';
-import { Modal } from '../modal/modal';
+import { useEffect } from 'react'
+import { createPortal } from 'react-dom'
+import PropTypes from 'prop-types'
+import { Modal } from '../modal/modal'
 import styles from './styles.module.css'
 
 export const ModalOverlay = ({ title, onClose, ...props }) => {
@@ -13,7 +13,6 @@ export const ModalOverlay = ({ title, onClose, ...props }) => {
          }
       }
       document.addEventListener("keydown", handleESCclose)
-
       return () => {
          document.removeEventListener("keydown", handleESCclose)
       }

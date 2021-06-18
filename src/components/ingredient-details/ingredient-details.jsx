@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import styles from './styles.module.css'
 
 export const IngredientDetails = ({ img, name, calories, proteins, fat, carbohydrates }) => {
@@ -45,7 +45,7 @@ export const IngredientDetails = ({ img, name, calories, proteins, fat, carbohyd
             </div>
          </div>
       </section >
-   );
+   )
 }
 
 IngredientDetails.propTypes = {

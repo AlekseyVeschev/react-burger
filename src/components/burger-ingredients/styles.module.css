@@ -19,8 +19,3 @@
   max-height: 700px;
   overflow: auto;
 }
- .content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
- }

@@ -9,24 +9,27 @@
   border: 3px solid #2F2F37;
   border-radius: 6px;
 }
+.root {
+  flex: 1;
+}
+.active {
+  flex: 1;
+  background-color: #1c1c21;
+  border: 1px solid #8585AD;
+  border-radius: 32px;
+  box-sizing: border-box;
+}
 .locked_block {
   display: flex;
   justify-content: flex-end;
 }
 .wrapper_elements {
-  max-width: 588px;
   gap: 10px;
   display: flex;
   max-height: 350px;
   flex-direction: column;
   overflow: auto;
-  padding-left: 0px;
 }
-.element {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
- }
 .section {
     display: flex;
     align-items: center;

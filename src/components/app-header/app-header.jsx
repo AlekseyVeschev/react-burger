@@ -30,5 +30,5 @@ export const AppHeader = () => {
             </button>
          </header >
       </div>
-   );
+   )
 }
