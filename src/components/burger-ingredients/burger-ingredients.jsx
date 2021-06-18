@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getIngredients, removeCurrentIngredient, setCurrentIngredient } from './actions'
+import { getIngredients, removeCurrentIngredient, setCurrentIngredient } from './services/actions/burger-ingredients'
 import { INGREDIENTS_TYPES, INGREDIENTS_TYPES_NAME, SORTED_INGREDIENTS_TYPES } from '../../utils/constants'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { ModalOverlay } from '../modal-overlay/modal-overlay'
 import { IngredientDetails } from '../ingredient-details/ingredient-details'
 import { IngredientsGroup } from '../ingredients-group/ingredients-group'
-import styles from './styles.module.css'
+import styles from './burger-ingredients.module.css'
 
 
 export const BurgerIngredients = () => {

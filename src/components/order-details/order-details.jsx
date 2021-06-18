@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import styles from './styles.module.css'
+import styles from './order-details.module.css'
 
 export const OrderDetails = ({ orderNumber, info, text }) => {
    return (
@@ -21,7 +21,7 @@ export const OrderDetails = ({ orderNumber, info, text }) => {
             {text}
          </p>
       </section >
-   );
+   )
 }
 OrderDetails.propTypes = {
    orderNumber: PropTypes.number.isRequired,

@@ -3,7 +3,7 @@ import { useDrag } from 'react-dnd'
 import { TYPES_DND } from '../../utils/constants'
 import PropTypes from 'prop-types'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import styles from './styles.module.css'
+import styles from './ingredient.module.css'
 
 export const Ingredient = ({ ing, onClick }) => {
 

@@ -2,7 +2,7 @@ import { useDrag, useDrop } from 'react-dnd'
 import { TYPES_DND } from '../../utils/constants'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import PropTypes from 'prop-types'
-import styles from './styles.module.css'
+import styles from './ingredient-constructor.module.css'
 
 
 export const IngredientConstructor = ({ ing, idx, removeIngredient, moveIngredient }) => {

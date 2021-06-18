@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import PropTypes from 'prop-types'
 import { Modal } from '../modal/modal'
-import styles from './styles.module.css'
+import styles from './modal-overlay.module.css'
 
 export const ModalOverlay = ({ title, onClose, ...props }) => {
 

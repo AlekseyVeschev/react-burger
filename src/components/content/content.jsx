@@ -2,7 +2,7 @@ import { DndProvider } from "react-dnd"
 import { HTML5Backend } from "react-dnd-html5-backend"
 import { BurgerIngredients } from '../burger-ingredients/burger-ingredients'
 import { BurgerConstructor } from '../burger-constructor/burger-constructor'
-import styles from './styles.module.css'
+import styles from './content.module.css'
 
 export const Content = () => {
   return (

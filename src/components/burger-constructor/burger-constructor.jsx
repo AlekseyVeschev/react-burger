@@ -2,13 +2,13 @@ import { useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useDrop } from 'react-dnd'
 import { TYPES_DND } from '../../utils/constants'
-import { getOrder, removeConstructorIngredient, removeOrder, setSelectedIngredient, sortIngredients } from './actions'
-import { decreaseCount, increaseCount } from '../burger-ingredients/actions'
+import { getOrder, removeConstructorIngredient, removeOrder, setSelectedIngredient, sortIngredients } from './services/actions/burger-constructor'
+import { decreaseCount, increaseCount } from '../burger-ingredients/services/actions/burger-ingredients'
 import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { OrderDetails } from '../order-details/order-details'
 import { ModalOverlay } from '../modal-overlay/modal-overlay'
-import { IngredientConstructor } from '../Ingredient-constructor/Ingredient-constructor'
-import styles from './styles.module.css'
+import { IngredientConstructor } from '../ingredient-constructor/ingredient-constructor'
+import styles from './burger-constructor.module.css'
 
 
 

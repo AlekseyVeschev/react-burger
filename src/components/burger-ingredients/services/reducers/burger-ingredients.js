@@ -1,4 +1,4 @@
-import { INGREDIENTS_TYPES } from '../../utils/constants';
+import { INGREDIENTS_TYPES } from '../../../../utils/constants'
 import {
   SET_INGREDIENTS_ERROR,
   SET_INGREDIENTS_SUCCESS,
@@ -7,14 +7,14 @@ import {
   REMOVE_CURRENT_INGREDIENT,
   INCREASE_COUNT,
   DECREASE_COUNT,
-} from './actions';
+} from '../actions/burger-ingredients'
 
 const initialState = {
   ingredients: [],
   currentIngredient: null,
   loading: false,
   error: null,
-};
+}
 
 export const ingredientsReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -78,6 +78,6 @@ export const ingredientsReducer = (state = initialState, action) => {
         error: action.payload
       }
     default:
-      return state;
+      return state
   }
 }

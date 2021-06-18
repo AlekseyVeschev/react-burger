@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import styles from './styles.module.css'
+import styles from './modal.module.css'
 
 export const Modal = ({ title, onClickCloseButton, ...props }) => {
    return (

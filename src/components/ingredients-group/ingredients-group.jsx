@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import PropTypes from 'prop-types'
 import { ingredientPropTypes } from "../../types/ingredient-props"
 import { Ingredient } from '../ingredient/ingredient'
-import styles from './styles.module.css'
+import styles from './ingredients-group.module.css'
 
 
 export const IngredientsGroup = ({ id, title, ingredients, observer, onClickIngredient }) => {

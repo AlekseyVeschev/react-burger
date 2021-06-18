@@ -1,4 +1,4 @@
-import { INGREDIENTS_TYPES } from '../../utils/constants'
+import { INGREDIENTS_TYPES } from '../../../../utils/constants'
 import {
   SET_CONSTRUCTOR_ERROR,
   SET_CONSTRUCTOR_LOADING,
@@ -7,7 +7,7 @@ import {
   SET_ORDER,
   REMOVE_ORDER,
   SORT_INGREDIENTS
-} from './actions'
+} from '../actions/burger-constructor'
 
 const initialState = {
   selectedIngredients: [],
