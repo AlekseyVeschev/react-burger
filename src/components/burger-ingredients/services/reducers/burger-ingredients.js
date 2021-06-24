@@ -7,6 +7,7 @@ import {
   REMOVE_CURRENT_INGREDIENT,
   INCREASE_COUNT,
   DECREASE_COUNT,
+  CLEAR_COUNTS,
 } from '../actions/burger-ingredients'
 
 const initialState = {
@@ -69,6 +70,13 @@ export const ingredientsReducer = (state = initialState, action) => {
             return { ...ing, count: ing.count - 1 || null }
           }
           return ing
+        })]
+      }
+    case CLEAR_COUNTS:
+      return {
+        ...state,
+        ingredients: [...state.ingredients.map(ing => {
+          return { ...ing, count: null }
         })]
       }
     case SET_INGREDIENTS_ERROR:

@@ -5,7 +5,7 @@ import {
   SET_SELECTED_INGREDIENT,
   REMOVE_CONSTRUCTOR_INGREDIENT,
   SET_ORDER,
-  REMOVE_ORDER,
+  CLEAR_CONSTRURTOR,
   SORT_INGREDIENTS
 } from '../actions/burger-constructor'
 
@@ -59,10 +59,9 @@ export const constructorReducer = (state = initialState, action) => {
         orderNumber: action.payload.order.number,
         loading: false
       }
-    case REMOVE_ORDER:
+    case CLEAR_CONSTRURTOR:
       return {
-        ...state,
-        orderNumber: initialState.orderNumber,
+        ...initialState
       }
     case SORT_INGREDIENTS:
       const sortIngredients = [...state.selectedIngredients]

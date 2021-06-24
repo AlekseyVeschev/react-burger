@@ -7,6 +7,7 @@ export const SET_CURRENT_INGREDIENT = 'SET_CURRENT_INGREDIENT'
 export const REMOVE_CURRENT_INGREDIENT = 'REMOVE_CURRENT_INGREDIENT'
 export const INCREASE_COUNT = 'INCREASE_COUNT'
 export const DECREASE_COUNT = 'DECREASE_COUNT'
+export const CLEAR_COUNTS = 'CLEAR_COUNTS'
 
 export const setLoading = () => ({ type: SET_INGREDIENTS_LOADING })
 export const setError = payload => ({ type: SET_INGREDIENTS_ERROR, payload })
@@ -15,6 +16,7 @@ export const setCurrentIngredient = payload => ({ type: SET_CURRENT_INGREDIENT, 
 export const removeCurrentIngredient = payload => ({ type: REMOVE_CURRENT_INGREDIENT, payload })
 export const increaseCount = payload => ({ type: INCREASE_COUNT, payload })
 export const decreaseCount = payload => ({ type: DECREASE_COUNT, payload })
+export const clearCounts = () => ({ type: CLEAR_COUNTS })
 
 
 export const getIngredients = () => async dispatch => {
