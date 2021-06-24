@@ -1,4 +1,4 @@
-export const BASE_URL = "https://norma.nomoreparties.space/api";
+export const BASE_URL = "https://norma.nomoreparties.space/api"
 
 export const INGREDIENTS_TYPES = {
    bun: 'bun',
@@ -14,4 +14,8 @@ export const INGREDIENTS_TYPES_NAME = {
    [INGREDIENTS_TYPES.bun]: "Булки",
    [INGREDIENTS_TYPES.sauce]: "Соусы",
    [INGREDIENTS_TYPES.main]: "Начинки",
+}
+export const TYPES_DND = {
+   ingredients: "ingredients",
+   items: "items",
 }

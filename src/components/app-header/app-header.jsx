@@ -1,5 +1,5 @@
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import styles from './styles.module.css'
+import styles from './app-header.module.css'
 
 export const AppHeader = () => {
    return (
@@ -30,5 +30,5 @@ export const AppHeader = () => {
             </button>
          </header >
       </div>
-   );
+   )
 }

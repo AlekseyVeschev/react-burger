@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import styles from './styles.module.css'
+import PropTypes from 'prop-types'
+import styles from './ingredient-details.module.css'
 
 export const IngredientDetails = ({ img, name, calories, proteins, fat, carbohydrates }) => {
    return (
@@ -45,7 +45,7 @@ export const IngredientDetails = ({ img, name, calories, proteins, fat, carbohyd
             </div>
          </div>
       </section >
-   );
+   )
 }
 
 IngredientDetails.propTypes = {

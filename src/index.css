@@ -1,4 +1,8 @@
+html {
+  height: 100%;
+}
 body {
+  height: 100%;
   margin: 0;
    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -8,6 +12,7 @@ body {
    position: relative;
  }
 #root {
+  height: 100%;
   max-width: 1920px;
   margin: 0 auto;
   box-sizing: border-box;
