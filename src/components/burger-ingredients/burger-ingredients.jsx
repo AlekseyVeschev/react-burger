@@ -1,17 +1,16 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getIngredients, removeCurrentIngredient, setCurrentIngredient } from './services/actions/burger-ingredients'
+import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { INGREDIENTS_TYPES, INGREDIENTS_TYPES_NAME, SORTED_INGREDIENTS_TYPES } from '../../utils/constants'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import { ModalOverlay } from '../modal-overlay/modal-overlay'
-import { IngredientDetails } from '../ingredient-details/ingredient-details'
 import { IngredientsGroup } from '../ingredients-group/ingredients-group'
 import styles from './burger-ingredients.module.css'
 
 
 export const BurgerIngredients = () => {
-   const dispatch = useDispatch()
-   const { ingredients, currentIngredient, loading, error } = useSelector(state => state.ingredients)
+
+   const history = useHistory()
+   const { ingredients, loading, error } = useSelector(state => state.ingredients)
 
    const [currentTab, setCurrentTab] = useState(INGREDIENTS_TYPES.bun)
 
@@ -25,17 +24,11 @@ export const BurgerIngredients = () => {
       [INGREDIENTS_TYPES.main]: filterIngredients(INGREDIENTS_TYPES.main)
    }), [filterIngredients])
 
-   useEffect(() => {
-      dispatch(getIngredients())
-   }, [dispatch])
-
-   const openIngredientModal = useCallback((ing) => {
-      dispatch(setCurrentIngredient(ing))
-   }, [dispatch])
-
-   const closeIngredientModal = useCallback(() => {
-      dispatch(removeCurrentIngredient())
-   }, [dispatch])
+   const openIngredientModal = useCallback((_id) => {
+      history.push({
+         pathname: `/ingredients/${_id}`
+      })
+   }, [history])
 
    const scrollToTab = useCallback((currentTab) => {
       const tab = document.getElementById(currentTab)
@@ -112,21 +105,6 @@ export const BurgerIngredients = () => {
                   />
                )))}
             </div>
-         )}
-         {currentIngredient && (
-            <ModalOverlay
-               title="Детали ингредиента"
-               onClose={closeIngredientModal}
-            >
-               <IngredientDetails
-                  img={currentIngredient.image_large}
-                  name={currentIngredient.name}
-                  calories={currentIngredient.calories}
-                  proteins={currentIngredient.proteins}
-                  fat={currentIngredient.fat}
-                  carbohydrates={currentIngredient.carbohydrates}
-               />
-            </ModalOverlay>
          )}
       </main >
    )

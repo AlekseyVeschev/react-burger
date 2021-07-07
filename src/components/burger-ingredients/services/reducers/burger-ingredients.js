@@ -3,8 +3,6 @@ import {
   SET_INGREDIENTS_ERROR,
   SET_INGREDIENTS_SUCCESS,
   SET_INGREDIENTS_LOADING,
-  SET_CURRENT_INGREDIENT,
-  REMOVE_CURRENT_INGREDIENT,
   INCREASE_COUNT,
   DECREASE_COUNT,
   CLEAR_COUNTS,
@@ -12,7 +10,7 @@ import {
 
 const initialState = {
   ingredients: [],
-  currentIngredient: null,
+  currentIngredientId: '',
   loading: false,
   error: null,
 }
@@ -31,16 +29,6 @@ export const ingredientsReducer = (state = initialState, action) => {
         loading: false,
         error: false,
         ingredients: action.payload,
-      }
-    case SET_CURRENT_INGREDIENT:
-      return {
-        ...state,
-        currentIngredient: action.payload
-      }
-    case REMOVE_CURRENT_INGREDIENT:
-      return {
-        ...state,
-        currentIngredient: initialState.currentIngredient
       }
     case INCREASE_COUNT:
       return {
