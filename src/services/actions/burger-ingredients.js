@@ -1,4 +1,4 @@
-import { Api } from '../../../../utils/api'
+import { Api } from '../../utils/api'
 
 export const SET_INGREDIENTS_LOADING = 'SET_INGREDIENTSS_LOADING'
 export const SET_INGREDIENTS_SUCCESS = 'SET_INGREDIENTS_SUCCESS'

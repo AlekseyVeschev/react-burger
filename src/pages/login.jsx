@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { loginRequest } from './services/actions/auth'
+import { loginRequest } from '../services/actions/auth'
 import styles from './login.module.css'
 
 
@@ -17,7 +17,7 @@ export const Login = () => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  let login = useCallback(e => {
+  const handleSubmit = useCallback(e => {
     e.preventDefault()
     dispatch(loginRequest(form))
     setForm({ email: '', password: '' })
@@ -30,7 +30,10 @@ export const Login = () => {
           {error}
         </p>
       }
-      <form className={`${styles.form} pb-5  mb-5`}>
+      <form
+        onSubmit={handleSubmit}
+        className={`${styles.form} pb-5  mb-5`}
+      >
         <p className="text text_type_main-medium mb-5">
           Вход
         </p>
@@ -50,15 +53,14 @@ export const Login = () => {
         </div>
         <div className="pt-1 pb-5 mb-5">
           <Button
-            type="primary"
+            type={"submit" && "primary"}
             size="medium"
-            onClick={login}
           >
             Войти
           </Button>
         </div>
       </form>
-      <div className={`${styles.text}`}>
+      <div className={styles.text}>
         <p className="text text_type_main-default mr-2">
           Вы - новый пользователь?
         </p>
@@ -69,7 +71,7 @@ export const Login = () => {
           Зарегистрироваться
         </Link>
       </div>
-      <div className={`${styles.text}`}>
+      <div className={styles.text}>
         <p className="text text_type_main-default mr-2">
           Забыли пароль?
         </p>

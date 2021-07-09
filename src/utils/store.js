@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
 import thunk from 'redux-thunk'
-import { constructorReducer } from '../components/burger-constructor/services/reducers/burger-constructor'
-import { ingredientsReducer } from '../components/burger-ingredients/services/reducers/burger-ingredients'
-import { authReducer } from '../pages/services/reducers/auth'
+import { constructorReducer } from '../services/reducers/burger-constructor'
+import { ingredientsReducer } from '../services/reducers/burger-ingredients'
+import { authReducer } from '../services/reducers/auth'
 
 const rootReducer = combineReducers({
   ingredients: ingredientsReducer,

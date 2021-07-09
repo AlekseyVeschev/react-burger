@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { getUserRequest, updateUserRequest } from './services/actions/auth'
+import { getUserRequest, updateUserRequest } from '../services/actions/auth'
 import styles from './profile.module.css'
 
 
@@ -36,7 +36,7 @@ export const Profile = ({ setTitle }) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }, [form])
 
-  const buttonSave = useCallback(e => {
+  const handleSubmit = useCallback(e => {
     e.preventDefault()
     dispatch(updateUserRequest(form))
   }, [dispatch, form])
@@ -56,7 +56,10 @@ export const Profile = ({ setTitle }) => {
   }, [dispatch, setTitle])
 
   return (
-    <form className={`${styles.form} ml-5`}>
+    <form
+      onSubmit={handleSubmit}
+      className={`${styles.form} ml-5`}
+    >
       {error &&
         <p className={`${styles.error} text text_type_main-medium`} >
           {error}
@@ -98,9 +101,8 @@ export const Profile = ({ setTitle }) => {
             Отмена
           </Button>
           <Button
-            type="primary"
+            type={"submit" && "primary"}
             size="medium"
-            onClick={buttonSave}
           >
             Сохранить
           </Button>

@@ -1,4 +1,4 @@
-import { Api } from '../../../utils/api'
+import { Api } from '../../utils/api'
 
 export const SET_AUTH_LOADING = 'SET_AUTH_LOADING'
 export const SET_AUTH_ERROR = 'SET_AUTH_ERROR'

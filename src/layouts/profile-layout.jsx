@@ -5,7 +5,7 @@ import { ProtectedRoute } from '../components/protected-route'
 import { Profile } from '../pages/profile'
 import { OrdersHistory } from '../pages/orders-history'
 import { OrderInHistory } from '../pages/order-in-history'
-import { logoutRequest, getUserRequest } from '../pages/services/actions/auth'
+import { logoutRequest, getUserRequest } from '../services/actions/auth'
 import styles from './profile-layout.module.css'
 
 

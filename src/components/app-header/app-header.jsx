@@ -30,9 +30,12 @@ export const AppHeader = () => {
                   </p>
                </NavLink>
             </div>
-            <div className={styles.logo} >
+            <NavLink
+               to="/"
+               className={styles.logo}
+            >
                <Logo />
-            </div>
+            </NavLink>
             <NavLink
                to="/profile"
                className={`${styles.link}`}

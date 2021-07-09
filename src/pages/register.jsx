@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { EmailInput, PasswordInput, Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
-import { registerRequest } from './services/actions/auth'
+import { registerRequest } from '../services/actions/auth'
 import styles from './login.module.css'
 
 
@@ -17,7 +17,7 @@ export const Register = () => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  let register = useCallback(e => {
+  const handleSubmit = useCallback(e => {
     e.preventDefault()
     dispatch(registerRequest(form))
     setForm({ email: '', password: '', name: '' })
@@ -30,7 +30,10 @@ export const Register = () => {
           {error}
         </p>
       }
-      <form className={`${styles.form} pb-5  mb-5`}>
+      <form
+        onSubmit={handleSubmit}
+        className={`${styles.form} pb-5  mb-5`}
+      >
         <p className="text text_type_main-medium mb-5">
           Регистрация
         </p>
@@ -58,15 +61,14 @@ export const Register = () => {
         </div>
         <div className="pt-1 pb-5 mb-5">
           <Button
-            type="primary"
+            type={"submit" && "primary"}
             size="medium"
-            onClick={register}
           >
             Зарегистрироваться
           </Button>
         </div>
       </form>
-      <div className={`${styles.text}`}>
+      <div className={styles.text}>
         <p className="text text_type_main-default mr-2">
           Уже зарегистрированы?
         </p>

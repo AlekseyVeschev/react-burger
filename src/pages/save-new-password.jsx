@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { responcedEmail, setNewPassword } from './services/actions/auth'
+import { responcedEmail, setNewPassword } from '../services/actions/auth'
 import styles from './login.module.css'
 
 export const SaveNewPassword = () => {
@@ -21,7 +21,7 @@ export const SaveNewPassword = () => {
     }
   }, [dispatch])
 
-  const sendPassword = useCallback(e => {
+  const handleSubmit = useCallback(e => {
     e.preventDefault()
     dispatch(setNewPassword(form))
     setForm({ password: '', token: '' })
@@ -43,7 +43,10 @@ export const SaveNewPassword = () => {
           {error}
         </p>
       }
-      <form className={`${styles.form} pb-5  mb-5`}>
+      <form
+        onSubmit={handleSubmit}
+        className={`${styles.form} pb-5  mb-5`}
+      >
         <p className="text text_type_main-medium mb-5">
           Восстановление пароля
         </p>
@@ -67,15 +70,14 @@ export const SaveNewPassword = () => {
         </div>
         <div className="pt-1 pb-5 mb-5">
           <Button
-            type="primary"
+            type={"submit" && "primary"}
             size="medium"
-            onClick={sendPassword}
           >
             Сохранить
           </Button>
         </div>
       </form>
-      <div className={`${styles.text}`}>
+      <div className={styles.text}>
         <p className="text text_type_main-default mr-2">
           Вспомнили пароль?
         </p>

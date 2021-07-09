@@ -2,15 +2,14 @@ import { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { restorePasswordRequest } from './services/actions/auth'
+import { restorePasswordRequest } from '../services/actions/auth'
 import styles from './login.module.css'
 
 
 export const RestorePassword = () => {
 
   const dispatch = useDispatch()
-  const { loading, error, isResponcedEmail } = useSelector(state => state.auth)
-  console.log("errorForgotloading", loading)
+  const { error, isResponcedEmail } = useSelector(state => state.auth)
 
   const [email, setEmail] = useState('')
 
@@ -18,7 +17,7 @@ export const RestorePassword = () => {
     setEmail(e.target.value)
   }
 
-  let restorePassword = useCallback(e => {
+  const handleSubmit = useCallback(e => {
     e.preventDefault()
     dispatch(restorePasswordRequest(email))
     setEmail('')
@@ -40,7 +39,10 @@ export const RestorePassword = () => {
           {error}
         </p>
       }
-      <form className={`${styles.form} pb-5  mb-5`}>
+      <form
+        onSubmit={handleSubmit}
+        className={`${styles.form} pb-5  mb-5`}
+      >
         <p className="text text_type_main-medium mb-5">
           Восстановление пароля
         </p>
@@ -54,15 +56,14 @@ export const RestorePassword = () => {
         </div>
         <div className="pt-1 pb-5 mb-5">
           <Button
-            type="primary"
+            type={"submit" && "primary"}
             size="medium"
-            onClick={restorePassword}
           >
             Восстановить
           </Button>
         </div>
       </form>
-      <div className={`${styles.text}`}>
+      <div className={styles.text}>
         <p className="text text_type_main-default mr-2">
           Вспомнили пароль?
         </p>

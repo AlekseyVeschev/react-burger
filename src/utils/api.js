@@ -2,7 +2,7 @@ import { BASE_URL } from "./constants"
 import { getCookie } from './cookies'
 import { saveTokens, deleteTokens } from './tokens'
 import { store } from './store'
-import { setAuthError } from "../pages/services/actions/auth"
+import { setAuthError } from "../services/actions/auth"
 
 
 const request = async (url, { body, method = 'GET', headers = {} } = {}) => {
@@ -42,121 +42,87 @@ const request = async (url, { body, method = 'GET', headers = {} } = {}) => {
 
 export const Api = {
    getIngredients: async () => {
-      try {
-         const { data } = await request(`/ingredients`)
-         return data
-      } catch (error) {
-         throw error
-      }
+      const { data } = await request(`/ingredients`)
+      return data
    },
+
    createOrder: async (idIngredients) => {
-      try {
-         return await request(`/orders`, {
-            method: 'POST',
-            body: { ingredients: idIngredients },
-         })
-      } catch (error) {
-         throw error
-      }
+      return await request(`/orders`, {
+         method: 'POST',
+         body: { ingredients: idIngredients },
+      })
    },
 
    register: async (form) => {
-      try {
-         const data = await request(`/auth/register`, {
-            method: 'POST',
-            body: form,
-         })
+      const data = await request(`/auth/register`, {
+         method: 'POST',
+         body: form,
+      })
 
-         saveTokens(data)
-         return data
-      } catch (error) {
-         throw error
-      }
+      saveTokens(data)
+      return data
    },
 
    login: async (form) => {
-      try {
-         const data = await request(`/auth/login`, {
-            method: 'POST',
-            body: form,
-         })
-         saveTokens(data)
-         return data
-      } catch (error) {
-         throw error
-      }
+      const data = await request(`/auth/login`, {
+         method: 'POST',
+         body: form,
+      })
+      saveTokens(data)
+      return data
    },
 
    updateAccessToken: async () => {
-      try {
-         const data = await request(`/auth/token`, {
-            method: 'POST',
-            body: {
-               token: localStorage.getItem('refreshToken')
-            },
-         })
+      const data = await request(`/auth/token`, {
+         method: 'POST',
+         body: {
+            token: localStorage.getItem('refreshToken')
+         },
+      })
 
-         if (!data.success) {
-            store.dispatch(setAuthError(data))
-         }
-
-         saveTokens(data)
-         return data
-      } catch (error) {
-         throw error
+      if (!data.success) {
+         store.dispatch(setAuthError(data))
       }
+
+      saveTokens(data)
+      return data
    },
+
    logout: async () => {
-      try {
-         const data = await request(`/auth/logout`, {
-            method: 'POST',
-            body: {
-               token: localStorage.getItem('refreshToken')
-            },
-         })
-         deleteTokens()
-         return data
-      } catch (error) {
-         throw error
-      }
+      const data = await request(`/auth/logout`, {
+         method: 'POST',
+         body: {
+            token: localStorage.getItem('refreshToken')
+         },
+      })
+      deleteTokens()
+      return data
    },
+
    restorePassword: async ({ email }) => {
-      try {
-         return await request(`/password-reset`, {
-            method: 'POST',
-            body: {
-               email
-            },
-         })
-      } catch (error) {
-         throw error
-      }
+      return await request(`/password-reset`, {
+         method: 'POST',
+         body: {
+            email
+         },
+      })
    },
+
    setPassword: async (form) => {
-      try {
-         return await request(`/password-reset/reset`, {
-            method: 'POST',
-            body: form,
-         })
-      } catch (error) {
-         throw error
-      }
+      return await request(`/password-reset/reset`, {
+         method: 'POST',
+         body: form,
+      })
    },
+
    getUser: async () => {
-      try {
-         return await request(`/auth/user`)
-      } catch (error) {
-         throw error
-      }
+      return await request(`/auth/user`)
    },
+
    updateUser: async (form) => {
-      try {
-         return await request(`/auth/user`, {
-            method: 'PATCH',
-            body: form,
-         })
-      } catch (error) {
-         throw error
-      }
+      return await request(`/auth/user`, {
+         method: 'PATCH',
+         body: form,
+      })
    }
 }

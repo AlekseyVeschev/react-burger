@@ -1,10 +1,10 @@
 import { useEffect, useCallback } from 'react'
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { getIngredients } from '../components/burger-ingredients/services/actions/burger-ingredients'
+import { getIngredients } from '../services/actions/burger-ingredients'
 import { IngredientDetails } from '../components/ingredient-details/ingredient-details'
 import { Constructor } from '../pages/constructor'
-import { ModalOverlay } from '../components/modal-overlay/modal-overlay'
+import { Modal } from '../components/modal/modal'
 
 
 export const ConstructorLayout = () => {
@@ -28,19 +28,23 @@ export const ConstructorLayout = () => {
         <Constructor />
       </Route>
 
-      {isShowModal &&
-        <Route path="/ingredients/:id" exact={true}>
-          <Constructor />
-          <ModalOverlay
-            title="Детали ингредиента"
-            onClose={onClickCloseButton}
-          >
-            <IngredientDetails />
-          </ModalOverlay>
-        </Route>
-      }
       <Route path="/ingredients/:id" exact={true}>
-        <IngredientDetails title="Детали ингредиента" />
+        {isShowModal ?
+          (
+            <>
+              <Constructor />
+              <Modal
+                title="Детали ингредиента"
+                onClose={onClickCloseButton}
+              >
+                <IngredientDetails />
+              </Modal>
+            </>
+          ) : (
+            <IngredientDetails title="Детали ингредиента" />
+          )
+        }
+
       </Route>
     </Switch>
   )

@@ -1,4 +1,4 @@
-import { INGREDIENTS_TYPES } from '../../../../utils/constants'
+import { INGREDIENTS_TYPES } from '../../utils/constants'
 import {
   SET_CONSTRUCTOR_ERROR,
   SET_CONSTRUCTOR_LOADING,

@@ -1,4 +1,4 @@
-import { getCookie } from '../../../utils/cookies'
+import { getCookie } from '../../utils/cookies'
 import {
    SET_AUTH_LOADING,
    SET_AUTH_ERROR,
