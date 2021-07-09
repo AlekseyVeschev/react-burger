@@ -95,13 +95,14 @@ export const Profile = ({ setTitle }) => {
       {isVisibleButtons && (
         <div className={`${styles.buttonBlock} mb-5 pt-1`}>
           <Button
-            type="secondary" size="medium"
+            type="secondary"
+            size="medium"
             onClick={buttonUndo}
           >
             Отмена
           </Button>
           <Button
-            type={"submit" && "primary"}
+            type="primary"
             size="medium"
           >
             Сохранить

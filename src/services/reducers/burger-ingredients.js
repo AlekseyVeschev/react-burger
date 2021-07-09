@@ -10,7 +10,6 @@ import {
 
 const initialState = {
   ingredients: [],
-  currentIngredientId: '',
   loading: false,
   error: null,
 }

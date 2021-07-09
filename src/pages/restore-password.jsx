@@ -56,7 +56,7 @@ export const RestorePassword = () => {
         </div>
         <div className="pt-1 pb-5 mb-5">
           <Button
-            type={"submit" && "primary"}
+            type="primary"
             size="medium"
           >
             Восстановить
