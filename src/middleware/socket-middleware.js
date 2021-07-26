@@ -1,4 +1,4 @@
-import { getCookie } from "./cookies"
+import { getCookie } from "../utils/cookies"
 import { Api } from "../utils/api"
 
 export const socketMiddleware = (wsUrl, wsActions) => {

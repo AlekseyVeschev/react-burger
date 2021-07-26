@@ -1,11 +1,11 @@
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
 import thunk from 'redux-thunk'
-import { constructorReducer } from '../services/reducers/burger-constructor'
-import { ingredientsReducer } from '../services/reducers/burger-ingredients'
-import { authReducer } from '../services/reducers/auth'
-import { feedReducer } from '../services/reducers/feed'
-import { historyReducer } from '../services/reducers/history'
-import { socketMiddleware } from './socket-middleware'
+import { constructorReducer } from './reducers/burger-constructor'
+import { ingredientsReducer } from './reducers/burger-ingredients'
+import { authReducer } from './reducers/auth'
+import { feedReducer } from './reducers/feed'
+import { historyReducer } from './reducers/history'
+import { socketMiddleware } from '../middleware/socket-middleware'
 import {
   WS_FEED_CONNECTION_START,
   WS_FEED_CONNECTION_SUCCESS,
@@ -13,7 +13,7 @@ import {
   WS_FEED_CONNECTION_CLOSED,
   WS_FEED_GET_MESSAGE,
   WS_FEED_SEND_MESSAGE,
-} from '../services/actions/feed'
+} from './actions/feed'
 import {
   WS_HISTORY_CONNECTION_START,
   WS_HISTORY_CONNECTION_SUCCESS,
@@ -21,7 +21,7 @@ import {
   WS_HISTORY_CONNECTION_ERROR,
   WS_HISTORY_GET_MESSAGE,
   WS_HISTORY_SEND_MESSAGE
-} from '../services/actions/history'
+} from './actions/history'
 
 const wsFeedUrl = 'wss://norma.nomoreparties.space/orders/all'
 const wsFeedActions = {

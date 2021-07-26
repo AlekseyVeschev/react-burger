@@ -1,7 +1,7 @@
 import { BASE_URL } from "./constants"
 import { getCookie } from './cookies'
 import { saveTokens, deleteTokens } from './tokens'
-import { store } from './store'
+import { store } from '../services/store'
 import { clearUser } from "../services/actions/auth"
 
 
