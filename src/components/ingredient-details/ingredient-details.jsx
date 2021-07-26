@@ -1,10 +1,30 @@
-import PropTypes from 'prop-types'
+import { useMemo } from 'react'
+import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
+
 import styles from './ingredient-details.module.css'
 
-export const IngredientDetails = ({ img, name, calories, proteins, fat, carbohydrates }) => {
+export const IngredientDetails = ({ title }) => {
+
+   const { id } = useParams()
+   const { ingredients } = useSelector(state => state.ingredients)
+
+
+   const { image_large, name, calories, proteins, fat, carbohydrates } = useMemo(
+      () => ingredients?.find(ing => ing._id === id) || {},
+      [ingredients, id]
+   )
+
    return (
       <section className={styles.root}>
-         <img src={img} alt="img" className={styles.image} />
+         {!!title && (
+            <header className={`${styles.header} p-3`}>
+               <p className="text text_type_main-large">
+                  {title}
+               </p>
+            </header>
+         )}
+         <img src={image_large} alt={name} className={styles.image} />
          <div className="pt-4">
             <p className="text text_type_main-medium pb-3">
                {name}
@@ -46,13 +66,4 @@ export const IngredientDetails = ({ img, name, calories, proteins, fat, carbohyd
          </div>
       </section >
    )
-}
-
-IngredientDetails.propTypes = {
-   img: PropTypes.string.isRequired,
-   name: PropTypes.string.isRequired,
-   calories: PropTypes.number.isRequired,
-   proteins: PropTypes.number.isRequired,
-   fat: PropTypes.number.isRequired,
-   carbohydrates: PropTypes.number.isRequired
 }

@@ -1,12 +1,13 @@
 import { useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useDrop } from 'react-dnd'
+import { useHistory } from 'react-router-dom'
 import { TYPES_DND } from '../../utils/constants'
-import { getOrder, removeConstructorIngredient, clearConstructor, setSelectedIngredient, sortIngredients } from './services/actions/burger-constructor'
-import { clearCounts, decreaseCount, increaseCount } from '../burger-ingredients/services/actions/burger-ingredients'
+import { getOrder, removeConstructorIngredient, clearConstructor, setSelectedIngredient, sortIngredients } from '../../services/actions/burger-constructor'
+import { clearCounts, decreaseCount, increaseCount } from '../../services/actions/burger-ingredients'
 import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { OrderDetails } from '../order-details/order-details'
-import { ModalOverlay } from '../modal-overlay/modal-overlay'
+import { Modal } from '../modal/modal'
 import { IngredientConstructor } from '../ingredient-constructor/ingredient-constructor'
 import styles from './burger-constructor.module.css'
 
@@ -14,10 +15,12 @@ import styles from './burger-constructor.module.css'
 
 export const BurgerConstructor = () => {
 
+   const history = useHistory()
    const dispatch = useDispatch()
    const { selectedBun, selectedIngredients, bunsSum,
       ingredientsSum, error, orderNumber, loading
    } = useSelector(state => state.selectedIngredients)
+   const { isAuth } = useSelector(state => state.auth)
 
    const selectedIds = useMemo(() => {
       const result = selectedIngredients.map(ing => ing._id)
@@ -46,10 +49,12 @@ export const BurgerConstructor = () => {
    }, [dispatch])
 
    const handleClick = useCallback(() => {
-      if (selectedBun) {
+      if (!isAuth) {
+         history.push("/login")
+      } else if (selectedBun) {
          dispatch(getOrder(selectedIds))
       }
-   }, [dispatch, selectedBun, selectedIds])
+   }, [dispatch, selectedBun, selectedIds, isAuth, history])
 
    const [{ isHover }, dropRef] = useDrop({
       accept: TYPES_DND.ingredients,
@@ -68,13 +73,13 @@ export const BurgerConstructor = () => {
             : (loading
                ? "Загружаю..."
                : (orderNumber && (
-                  <ModalOverlay onClose={closeConstructorModal}>
+                  <Modal onClose={closeConstructorModal}>
                      <OrderDetails
                         orderNumber={orderNumber}
                         info=" Ваш заказ начали готовить"
                         text=" Дождитесь готовности на орбитальной станции"
                      />
-                  </ModalOverlay>
+                  </Modal>
                ))
             )}
          {!!selectedBun && (

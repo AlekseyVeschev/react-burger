@@ -7,7 +7,7 @@ import styles from './ingredient.module.css'
 
 export const Ingredient = ({ ing, onClick }) => {
 
-   const { name, price, image, count } = ing
+   const { _id, name, price, image, count } = ing
 
    const [{ opacity }, dragRef] = useDrag({
       type: TYPES_DND.ingredients,
@@ -18,8 +18,8 @@ export const Ingredient = ({ ing, onClick }) => {
    })
 
    const handlelClick = useCallback(() => {
-      onClick(ing)
-   }, [onClick, ing])
+      onClick(_id)
+   }, [onClick, _id])
 
    return (
       <li

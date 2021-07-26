@@ -1,0 +1,41 @@
+.cards::-webkit-scrollbar {
+  width: 12px;
+}
+.cards::-webkit-scrollbar-track {
+  background: #2F2F37;
+}
+.cards::-webkit-scrollbar-thumb {
+  background: #8585AD;
+  border: 3px solid #2F2F37;
+  border-radius: 6px;
+}
+.root{
+  max-width: 1240px;
+  margin: 0 auto;
+}
+.wrapper{
+  display: flex;
+}
+.cards {
+  width: 51%;
+  max-height: 700px;
+  overflow: auto;
+}
+.statistic {
+  width: 49%;
+  padding-left: 60px;
+}
+.block_status {
+  display: flex;
+  justify-content: space-between;
+}
+.numbers_status {
+  width: 50%;
+  padding: 0;
+}
+.number_ready {
+  color: #00CCCC;
+}
+.all_statistic {
+  padding-top: 60px;
+}
