@@ -1,12 +1,14 @@
 import { useCallback } from 'react'
+import { useSelector } from 'react-redux'
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom'
-import { IngredientDetails } from '../components/ingredient-details/ingredient-details'
-import { Constructor } from '../pages/constructor'
+import { OrdersFeed } from '../pages/orders-feed'
 import { Modal } from '../components/modal/modal'
+import { FeedPage } from '../pages/feed-page'
 
 
-export const ConstructorLayout = () => {
+export const FeedLayout = () => {
 
+  const { currentNumber } = useSelector(state => state.feed)
   const location = useLocation()
   const history = useHistory()
   const isShowModal = history.action === 'PUSH'
@@ -17,24 +19,24 @@ export const ConstructorLayout = () => {
 
   return (
     <Switch location={location}>
-      <Route path="/" exact={true}>
-        <Constructor />
+      <Route path="/feed" exact={true}>
+        <OrdersFeed />
       </Route>
 
-      <Route path="/ingredients/:id" exact={true}>
+      <Route path="/feed/:id" exact={true}>
         {isShowModal ?
           (
             <>
-              <Constructor />
+              <OrdersFeed />
               <Modal
-                title="Детали ингредиента"
+                title={currentNumber}
                 onClose={onClickCloseButton}
               >
-                <IngredientDetails />
+                <FeedPage title={currentNumber} />
               </Modal>
             </>
           ) : (
-            <IngredientDetails title="Детали ингредиента" />
+            <FeedPage />
           )
         }
 

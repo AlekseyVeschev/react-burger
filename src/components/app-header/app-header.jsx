@@ -1,13 +1,18 @@
 import { NavLink } from "react-router-dom"
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './app-header.module.css'
-
+import { MenuIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons"
+import logo from "../../images/logo.svg"
 
 export const AppHeader = () => {
 
    return (
       <div className={styles.root}>
          <header className={`${styles.header} pt-5 pb-5`}>
+            <div className={`${styles.mobile_header} pl-5 pr-5`}>
+               <img src={logo} alt="LOGO" />
+               <MenuIcon type="primary" />
+            </div>
             <div className={styles.leftBlock}>
                <NavLink
                   exact

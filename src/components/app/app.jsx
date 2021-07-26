@@ -1,19 +1,31 @@
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { getIngredients } from '../../services/actions/burger-ingredients'
 import { Route, Switch } from 'react-router-dom'
 import { AppHeader } from '../app-header/app-header'
 import { Login } from '../../pages/login'
 import { Register } from '../../pages/register'
 import { RestorePassword } from '../../pages/restore-password'
 import { SaveNewPassword } from '../../pages/save-new-password'
-import { OrdersTape } from '../../pages/orders-tape'
-import { OrderInTape } from '../../pages/order-in-tape'
 import { ProfileLayout } from '../../layouts/profile-layout'
 import { ProtectedRoute } from '../../components/protected-route'
 import { PublicRoute } from '../../components/public-route'
 import { NotFound404 } from '../../pages/not-found-404'
 import { ConstructorLayout } from '../../layouts/constructor-layout'
-
+import { FeedLayout } from '../../layouts/feed-layout'
+import { wsFeedStart } from '../../services/actions/feed'
 
 export const App = () => {
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getIngredients())
+  }, [dispatch])
+
+  useEffect(() => {
+    dispatch(wsFeedStart())
+  }, [dispatch])
 
   return (
     <>
@@ -39,12 +51,8 @@ export const App = () => {
           <SaveNewPassword />
         </PublicRoute>
 
-        <Route path="/feed" exact={true}>
-          <OrdersTape />
-        </Route>
-
-        <Route path="/feed/:id" exact={true}>
-          <OrderInTape />
+        <Route path="/feed">
+          <FeedLayout />
         </Route>
 
         <ProtectedRoute path="/profile">

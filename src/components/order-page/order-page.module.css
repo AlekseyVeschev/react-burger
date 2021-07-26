@@ -13,7 +13,7 @@
 width: 640px;
 margin: 0 auto;
 }
-.number {
+.header {
   text-align: center;
   padding-top: 120px;
 }
@@ -33,16 +33,16 @@ margin: 0 auto;
   justify-content: space-between;
   align-items: center;
 }
+.section {
+  display: flex;
+  align-items: center;
+}
 .bottom_block {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.image {
-  max-width:112px;
-  max-height:56px;
-  margin-left: -32px;
-}
+
 .price {
   display: flex;
 }

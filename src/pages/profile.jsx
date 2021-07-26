@@ -3,14 +3,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { getUserRequest, updateUserRequest } from '../services/actions/auth'
+import { Loading } from '../components/loading/loading'
 import styles from './profile.module.css'
 
 
-export const Profile = ({ setTitle }) => {
-  const title = "В этом разделе вы можете изменить свои персональные данные"
-
+export const Profile = () => {
   const dispatch = useDispatch()
-  const { email, name, error } = useSelector(state => state.auth)
+  const { email, name, error, isLoading } = useSelector(state => state.auth)
 
   const [form, setForm] = useState({
     email: '',
@@ -52,8 +51,7 @@ export const Profile = ({ setTitle }) => {
 
   useEffect(() => {
     dispatch(getUserRequest())
-    setTitle(title)
-  }, [dispatch, setTitle])
+  }, [dispatch])
 
   return (
     <form
@@ -65,6 +63,7 @@ export const Profile = ({ setTitle }) => {
           {error}
         </p>
       }
+      {isLoading && <Loading />}
       <div className={`${styles.field} mb-5 pt-1`} >
         <Input
           name={'name'}

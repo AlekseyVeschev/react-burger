@@ -35,3 +35,28 @@
  .leftBlock{ 
   display: flex;
  }
+ .mobile_header {
+   display: none;
+ }
+ 
+ @media (max-width: 768px) {
+.header {
+padding: 12px 0;
+   }
+.mobile_header {
+   width: 100%;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+.mobile_header > svg {
+   max-width: 150px;
+}
+.link, .leftBlock, .logo {
+   display: none;
+}
+.text {
+   display: block;
+   text-align: center;
+}
+}

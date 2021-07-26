@@ -10,7 +10,7 @@ import {
 
 const initialState = {
   ingredients: [],
-  loading: false,
+  isLoading: false,
   error: null,
 }
 
@@ -19,13 +19,13 @@ export const ingredientsReducer = (state = initialState, action) => {
     case SET_INGREDIENTS_LOADING:
       return {
         ...state,
-        loading: true,
+        isLoading: true,
         error: false,
       }
     case SET_INGREDIENTS_SUCCESS:
       return {
         ...state,
-        loading: false,
+        isLoading: false,
         error: false,
         ingredients: action.payload,
       }
@@ -69,7 +69,7 @@ export const ingredientsReducer = (state = initialState, action) => {
     case SET_INGREDIENTS_ERROR:
       return {
         ...state,
-        loading: false,
+        isLoading: false,
         error: action.payload
       }
     default:

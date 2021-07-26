@@ -4,9 +4,10 @@ import {
   SET_CONSTRUCTOR_LOADING,
   SET_SELECTED_INGREDIENT,
   REMOVE_CONSTRUCTOR_INGREDIENT,
-  SET_ORDER,
   CLEAR_CONSTRURTOR,
-  SORT_INGREDIENTS
+  SORT_INGREDIENTS,
+  SET_ORDER,
+  REMOVE_ORDER,
 } from '../actions/burger-constructor'
 
 const initialState = {
@@ -14,9 +15,9 @@ const initialState = {
   selectedBun: null,
   bunsSum: null,
   ingredientsSum: null,
-  loading: false,
-  error: null,
   orderNumber: null,
+  isLoading: false,
+  error: null,
 }
 
 export const constructorReducer = (state = initialState, action) => {
@@ -24,7 +25,7 @@ export const constructorReducer = (state = initialState, action) => {
     case SET_CONSTRUCTOR_LOADING:
       return {
         ...state,
-        loading: true,
+        isLoading: true,
         error: false,
       }
     case SET_SELECTED_INGREDIENT:
@@ -53,12 +54,6 @@ export const constructorReducer = (state = initialState, action) => {
           ),
         ingredientsSum: state.ingredientsSum - action.payload.price,
       }
-    case SET_ORDER:
-      return {
-        ...state,
-        orderNumber: action.payload.order.number,
-        loading: false
-      }
     case CLEAR_CONSTRURTOR:
       return {
         ...initialState
@@ -76,10 +71,21 @@ export const constructorReducer = (state = initialState, action) => {
         ...state,
         selectedIngredients: sortIngredients
       }
+    case SET_ORDER:
+      return {
+        ...state,
+        orderNumber: action.payload.number,
+        isLoading: false
+      }
+    case REMOVE_ORDER:
+      return {
+        ...state,
+        orderNumber: initialState.orderNumber
+      }
     case SET_CONSTRUCTOR_ERROR:
       return {
         ...state,
-        loading: false,
+        isLoading: false,
         error: action.payload
       }
     default:

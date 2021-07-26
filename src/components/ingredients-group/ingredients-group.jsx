@@ -5,7 +5,10 @@ import { Ingredient } from '../ingredient/ingredient'
 import styles from './ingredients-group.module.css'
 
 
-export const IngredientsGroup = ({ id, title, ingredients, observer, onClickIngredient }) => {
+export const IngredientsGroup = ({
+   id, title, ingredients,
+   observer, onClickIngredient, addIngredientMobile
+}) => {
 
    const [refElement, setRef] = useState(null)
 
@@ -30,6 +33,7 @@ export const IngredientsGroup = ({ id, title, ingredients, observer, onClickIngr
                   key={ing._id}
                   ing={ing}
                   onClick={onClickIngredient}
+                  addIngredientMobile={addIngredientMobile}
                />
             )}
          </ul>
@@ -44,4 +48,5 @@ IngredientsGroup.propTypes = {
    ingredients: PropTypes.arrayOf(ingredientPropTypes),
    observer: PropTypes.object,
    onClickIngredient: PropTypes.func,
+   addIngredientMobile: PropTypes.func,
 }

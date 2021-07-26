@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { EmailInput, PasswordInput, Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import { registerRequest } from '../services/actions/auth'
+import { Loading } from '../components/loading/loading'
 import styles from './login.module.css'
 
 
 export const Register = () => {
 
   const dispatch = useDispatch()
-  const { error } = useSelector(state => state.auth)
+  const { error, isLoading } = useSelector(state => state.auth)
 
   const [form, setForm] = useState({ name: '', email: '', password: '' })
 
@@ -25,6 +26,7 @@ export const Register = () => {
 
   return (
     <div className={styles.root}>
+      {isLoading && <Loading />}
       {error &&
         <p className={`${styles.error} text text_type_main-medium`} >
           {error}
@@ -32,7 +34,7 @@ export const Register = () => {
       }
       <form
         onSubmit={handleSubmit}
-        className={`${styles.form} pb-5  mb-5`}
+        className={`${styles.form} pb-5  mb-5  mt-4`}
       >
         <p className="text text_type_main-medium mb-5">
           Регистрация

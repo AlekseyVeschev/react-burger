@@ -19,3 +19,17 @@ export const TYPES_DND = {
    ingredients: "ingredients",
    items: "items",
 }
+export const ORDER_DETAILS = {
+   info: "Ваш заказ начали готовить",
+   text: " Дождитесь готовности на орбитальной станции"
+}
+export const STATUS_TYPES = {
+   created: 'created',
+   pending: 'pending',
+   done: 'done',
+}
+export const STATUS_TYPES_NAME = {
+   [STATUS_TYPES.created]: "Создан",
+   [STATUS_TYPES.pending]: "Готовится",
+   [STATUS_TYPES.done]: "Выполнен",
+}

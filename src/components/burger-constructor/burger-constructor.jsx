@@ -2,14 +2,18 @@ import { useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useDrop } from 'react-dnd'
 import { useHistory } from 'react-router-dom'
-import { TYPES_DND } from '../../utils/constants'
-import { getOrder, removeConstructorIngredient, clearConstructor, setSelectedIngredient, sortIngredients } from '../../services/actions/burger-constructor'
+import { ORDER_DETAILS, TYPES_DND } from '../../utils/constants'
+import { removeConstructorIngredient, clearConstructor, setSelectedIngredient, sortIngredients } from '../../services/actions/burger-constructor'
 import { clearCounts, decreaseCount, increaseCount } from '../../services/actions/burger-ingredients'
-import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { createOrder, removeOrder } from '../../services/actions/burger-constructor'
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import { OrderDetails } from '../order-details/order-details'
 import { Modal } from '../modal/modal'
 import { IngredientConstructor } from '../ingredient-constructor/ingredient-constructor'
+import { FooterConstructor } from '../footer-constructor/footer-constructor'
+import { Loading } from '../loading/loading'
 import styles from './burger-constructor.module.css'
+
 
 
 
@@ -18,9 +22,10 @@ export const BurgerConstructor = () => {
    const history = useHistory()
    const dispatch = useDispatch()
    const { selectedBun, selectedIngredients, bunsSum,
-      ingredientsSum, error, orderNumber, loading
+      ingredientsSum
    } = useSelector(state => state.selectedIngredients)
    const { isAuth } = useSelector(state => state.auth)
+   const { orderNumber, error, isLoading } = useSelector(state => state.selectedIngredients)
 
    const selectedIds = useMemo(() => {
       const result = selectedIngredients.map(ing => ing._id)
@@ -44,6 +49,7 @@ export const BurgerConstructor = () => {
    }, [dispatch])
 
    const closeConstructorModal = useCallback(() => {
+      dispatch(removeOrder())
       dispatch(clearConstructor())
       dispatch(clearCounts())
    }, [dispatch])
@@ -52,7 +58,7 @@ export const BurgerConstructor = () => {
       if (!isAuth) {
          history.push("/login")
       } else if (selectedBun) {
-         dispatch(getOrder(selectedIds))
+         dispatch(createOrder(selectedIds))
       }
    }, [dispatch, selectedBun, selectedIds, isAuth, history])
 
@@ -67,23 +73,26 @@ export const BurgerConstructor = () => {
    })
    const [, drop] = useDrop(() => ({ accept: TYPES_DND.items }))
    return (
-      <main ref={dropRef} className={`${isHover ? styles.active : styles.root}`}>
-         {error
+      <main
+         ref={dropRef}
+         className={`${isHover ? styles.active : styles.root} ml-5 pl-4`}
+      >
+         {!!error
             ? `Ошибка: ${error.message}`
-            : (loading
-               ? "Загружаю..."
+            : (isLoading
+               ? <Loading />
                : (orderNumber && (
                   <Modal onClose={closeConstructorModal}>
                      <OrderDetails
                         orderNumber={orderNumber}
-                        info=" Ваш заказ начали готовить"
-                        text=" Дождитесь готовности на орбитальной станции"
+                        info={ORDER_DETAILS.info}
+                        text={ORDER_DETAILS.text}
                      />
                   </Modal>
                ))
             )}
          {!!selectedBun && (
-            <div className={`${styles.locked_block} mr-2`} >
+            <div className={styles.locked_block} >
                <ConstructorElement
                   type="top"
                   isLocked={true}
@@ -93,7 +102,7 @@ export const BurgerConstructor = () => {
                />
             </div>
          )}
-         <ul ref={drop} className={`${styles.wrapper_elements} mt-2 mb-2 pr-2`}>
+         <ul ref={drop} className={`${styles.wrapper_elements} mt-3 mb-3`}>
             {selectedIngredients && selectedIngredients.map((ing, idx) =>
                <IngredientConstructor
                   key={`${ing._id}-${idx}`}
@@ -105,7 +114,7 @@ export const BurgerConstructor = () => {
             )}
          </ul>
          {!!selectedBun && (
-            <div className={`${styles.locked_block} mr-2`}>
+            <div className={`${styles.locked_block}`}>
                <ConstructorElement
                   type="bottom"
                   isLocked={true}
@@ -115,23 +124,11 @@ export const BurgerConstructor = () => {
                />
             </div>
          )}
-         <section className={`${styles.section} pr-1`}>
-            <p className="text text_type_digits-medium">
-               {`${ingredientsSum + bunsSum}`}
-            </p>
-            <div className="m-5">
-               <CurrencyIcon type="primary" />
-            </div>
-            <div className="m-5 mr-1">
-               <Button
-                  type="primary"
-                  size="large"
-                  onClick={handleClick}
-               >
-                  Оформить заказ
-               </Button>
-            </div>
-         </section>
+         <FooterConstructor
+            handleClick={handleClick}
+            sum={`${ingredientsSum + bunsSum}`}
+            title="Оформить заказ"
+         />
       </main>
    )
 }

@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { responcedEmail, setNewPassword } from '../services/actions/auth'
+import { Loading } from '../components/loading/loading'
 import styles from './login.module.css'
 
 export const SaveNewPassword = () => {
 
   const dispatch = useDispatch()
-  const { error, isResponcedEmail } = useSelector(state => state.auth)
+  const { error, isResponcedEmail, isLoading } = useSelector(state => state.auth)
 
   const [form, setForm] = useState({ password: '', token: '' })
 
@@ -38,6 +39,7 @@ export const SaveNewPassword = () => {
   }
   return (
     <div className={styles.root}>
+      {isLoading && <Loading />}
       {error &&
         <p className={`${styles.error} text text_type_main-medium`} >
           {error}
@@ -45,9 +47,9 @@ export const SaveNewPassword = () => {
       }
       <form
         onSubmit={handleSubmit}
-        className={`${styles.form} pb-5  mb-5`}
+        className={`${styles.form} pb-5  mb-5 mt-4`}
       >
-        <p className="text text_type_main-medium mb-5">
+        <p className={`${styles.title} text text_type_main-medium mb-5`}>
           Восстановление пароля
         </p>
         <div className={`${styles.field} mb-5 pt-1`} >
