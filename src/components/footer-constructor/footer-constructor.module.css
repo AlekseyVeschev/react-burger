@@ -1,0 +1,11 @@
+.section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+@media (max-width: 768px) {
+.section > button {
+    font-size: 16px;
+    color: red
+}
+}

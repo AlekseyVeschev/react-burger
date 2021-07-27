@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-
+import PropTypes from 'prop-types'
 import styles from './ingredient-details.module.css'
 
 export const IngredientDetails = ({ title }) => {
@@ -66,4 +66,7 @@ export const IngredientDetails = ({ title }) => {
          </div>
       </section >
    )
+}
+IngredientDetails.propTypes = {
+   title: PropTypes.string
 }

@@ -1,8 +1,8 @@
 import { BASE_URL } from "./constants"
 import { getCookie } from './cookies'
 import { saveTokens, deleteTokens } from './tokens'
-import { store } from './store'
-import { setAuthError } from "../services/actions/auth"
+import { store } from '../services/store'
+import { clearUser } from "../services/actions/auth"
 
 
 const request = async (url, { body, method = 'GET', headers = {} } = {}) => {
@@ -24,14 +24,14 @@ const request = async (url, { body, method = 'GET', headers = {} } = {}) => {
       body: JSON.stringify(body),
    })
 
-   const data = await response.json()
-
-   if (!data.success && data.message === "jwt expired") {
+   if (response.status === 401) {
       const data = await Api.updateAccessToken()
       if (data.success) {
          return request(url, { body, method, headers })
       }
    }
+
+   const data = await response.json()
 
    if (!data.success) {
       throw data
@@ -45,7 +45,6 @@ export const Api = {
       const { data } = await request(`/ingredients`)
       return data
    },
-
    createOrder: async (idIngredients) => {
       return await request(`/orders`, {
          method: 'POST',
@@ -81,7 +80,7 @@ export const Api = {
       })
 
       if (!data.success) {
-         store.dispatch(setAuthError(data))
+         store.dispatch(clearUser(data))
       }
 
       saveTokens(data)

@@ -13,3 +13,19 @@
    max-width:240px;
    max-height:120px;
  }
+ .button_add {
+   display: none;
+ }
+@media (max-width: 1200px) {
+  .root {
+    flex: 1;
+    justify-content: space-between;
+  }
+  .image {
+    max-width:144px;
+    max-height:72px;
+  }
+  .button_add {
+    display: block;
+  }
+}

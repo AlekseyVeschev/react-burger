@@ -25,17 +25,25 @@
   width: 49%;
   padding-left: 60px;
 }
-.block_status {
+.top_block {
   display: flex;
-  justify-content: space-between;
+}
+.status {
+  width: 50%;
+}
+.block_ready {
+  display: flex;
 }
 .numbers_status {
-  width: 50%;
   padding: 0;
+  flex: 1;
 }
 .number_ready {
   color: #00CCCC;
 }
 .all_statistic {
   padding-top: 60px;
+}
+.error {
+  color: red;
 }

@@ -2,15 +2,16 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { INGREDIENTS_TYPES, INGREDIENTS_TYPES_NAME, SORTED_INGREDIENTS_TYPES } from '../../utils/constants'
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Tab, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { IngredientsGroup } from '../ingredients-group/ingredients-group'
+import { Loading } from '../loading/loading'
 import styles from './burger-ingredients.module.css'
 
 
 export const BurgerIngredients = () => {
 
    const history = useHistory()
-   const { ingredients, loading, error } = useSelector(state => state.ingredients)
+   const { ingredients, isLoading, error } = useSelector(state => state.ingredients)
 
    const [currentTab, setCurrentTab] = useState(INGREDIENTS_TYPES.bun)
 
@@ -29,6 +30,10 @@ export const BurgerIngredients = () => {
          pathname: `/ingredients/${_id}`
       })
    }, [history])
+
+   const addIngredient = useCallback((_id) => {
+      console.log("id", _id)
+   }, [])
 
    const scrollToTab = useCallback((currentTab) => {
       const tab = document.getElementById(currentTab)
@@ -61,7 +66,7 @@ export const BurgerIngredients = () => {
    }, [observer])
 
    return (
-      <main className={styles.root}>
+      <main className={`${styles.root} mr-5`}>
          <nav className={styles.navbar} >
             <Tab
                id={INGREDIENTS_TYPES.bun}
@@ -92,8 +97,8 @@ export const BurgerIngredients = () => {
             `Ошибка: ${error.message}`
          ) : (
             <div ref={ref} className={`${styles.wrapper_section} mt-5`}>
-               {loading ? (
-                  "Загружаю..."
+               {isLoading ? (
+                  <Loading />
                ) : (SORTED_INGREDIENTS_TYPES.map((type) => (
                   <IngredientsGroup
                      key={type}
@@ -102,10 +107,23 @@ export const BurgerIngredients = () => {
                      ingredients={groupedIngredients[type]}
                      observer={observer}
                      onClickIngredient={openIngredientModal}
+                     addIngredientMobile={addIngredient}
                   />
                )))}
             </div>
          )}
+         <footer className={`${styles.footer} pt-4 pb-4 pr-1`}>
+            <p className="text text_type_digits-default mr-2">
+               420
+            </p>
+            <CurrencyIcon type="primary" />
+            <Button
+               type="primary"
+               size="small"
+            >
+               Смотреть заказ
+            </Button>
+         </footer>
       </main >
    )
 }

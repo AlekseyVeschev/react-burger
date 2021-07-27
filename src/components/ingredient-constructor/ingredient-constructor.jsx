@@ -33,8 +33,11 @@ export const IngredientConstructor = ({ ing, idx, removeIngredient, moveIngredie
    }, [idx, moveIngredient])
 
    return (
-      <li className={styles.element} ref={node => dragRef(dropRef(node))} >
-         <div className="ml-4 mr-3" >
+      <li
+         className={`${styles.element} mb-2 mt-2`}
+         ref={node => dragRef(dropRef(node))}
+      >
+         <div className=" mr-2" >
             <DragIcon type="primary" />
          </div>
          <ConstructorElement

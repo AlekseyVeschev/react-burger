@@ -1,0 +1,29 @@
+.card_wrapper {
+  display: flex;
+  width: 64px;
+  height: 64px;
+  min-width: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(to right, #801AB2, #4C4CFF);
+  margin-left: -18px;
+}
+.card_wrapper::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  background-color: #131316;
+  pointer-events: none;
+  border-radius: 50%;
+}
+.image, .count {
+  max-height: 56px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

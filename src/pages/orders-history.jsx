@@ -1,27 +1,41 @@
-import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useCallback } from 'react'
+import { useHistory } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
-import styles from './profile.module.css'
+import { OrderCard } from '../components/order-card/order-card'
+import { setCurrentNumber } from '../services/actions/feed'
+import styles from './orders-history.module.css'
 
 
-export const OrdersHistory = ({ setTitle }) => {
-  const title = "В этом разделе вы можете просмотреть свою историю заказов"
+export const OrdersHistory = () => {
 
+  const dispatch = useDispatch()
+  const history = useHistory()
   const { error } = useSelector(state => state.auth)
+  const { orders } = useSelector(state => state.history)
 
-
-  useEffect(() => {
-    setTitle(title)
-  }, [setTitle])
+  const handlelClick = useCallback((id, number) => {
+    dispatch(setCurrentNumber(number))
+    history.push(`/profile/orders/${id}`)
+  }, [history, dispatch])
 
   return (
-    <div>
-      {error &&
-        <p className={`${styles.error} text text_type_main-medium`} >
+    <div className={`${styles.wrapper} mt-5 ml-5`}>
+      {!!error &&
+        <p className="text text_type_main-medium">
           {error}
         </p>
       }
-      OrdersHistory
+      <ul className={`${styles.cards} p-1`}>
+        {orders?.map(order =>
+          <OrderCard
+            key={order._id}
+            order={order}
+            onClick={handlelClick}
+            status={order.status}
+          />
+        )}
+      </ul>
     </div>
   )
 }

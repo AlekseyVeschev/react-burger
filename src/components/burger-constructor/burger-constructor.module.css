@@ -21,17 +21,23 @@
 }
 .locked_block {
   display: flex;
-  justify-content: flex-end;
+  margin-left: 32px;
 }
 .wrapper_elements {
   gap: 10px;
   display: flex;
-  max-height: 350px;
+  max-height: 420px;
   flex-direction: column;
   overflow: auto;
+  padding-left: 0;
 }
 .section {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+}
+@media (max-width: 768px) {
+.root {
+  display: none;
+}
 }

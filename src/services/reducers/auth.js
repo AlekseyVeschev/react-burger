@@ -11,7 +11,7 @@ import {
 const initialState = {
    name: '',
    email: '',
-   loading: false,
+   isLoading: false,
    error: null,
    message: '',
    isAuth: !!getCookie('accessToken'),
@@ -23,7 +23,7 @@ export const authReducer = (state = initialState, action) => {
       case SET_AUTH_LOADING:
          return {
             ...state,
-            loading: true,
+            isLoading: true,
             error: null,
          }
       case SET_USER:
@@ -32,14 +32,14 @@ export const authReducer = (state = initialState, action) => {
             name: action.payload.name,
             email: action.payload.email,
             isAuth: true,
-            loading: false,
+            isLoading: false,
             error: null,
          }
       case SET_MESSAGE:
          return {
             ...state,
             message: action.payload.message,
-            loading: false,
+            isLoading: false,
             error: null,
          }
       case CLEAR_USER:
@@ -55,7 +55,7 @@ export const authReducer = (state = initialState, action) => {
       case SET_AUTH_ERROR:
          return {
             ...state,
-            loading: false,
+            isLoading: false,
             isAuth: false,
             error: action.payload ? action.payload.message : null
          }
