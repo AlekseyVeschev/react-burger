@@ -5,14 +5,14 @@ export const SET_AUTH_ERROR = 'SET_AUTH_ERROR'
 export const SET_USER = 'SET_USER'
 export const SET_MESSAGE = 'SET_MESSAGE'
 export const CLEAR_USER = 'CLEAR_USER'
-export const RESPONCED_EMAIL = 'RESPONCED_EMAIL'
+export const RESPONSED_EMAIL = 'RESPONSED_EMAIL'
 
 export const setAuthLoading = () => ({ type: SET_AUTH_LOADING })
 export const setAuthError = payload => ({ type: SET_AUTH_ERROR, payload })
 export const setUser = payload => ({ type: SET_USER, payload })
 export const setMessage = payload => ({ type: SET_MESSAGE, payload })
 export const clearUser = () => ({ type: CLEAR_USER })
-export const responcedEmail = payload => ({ type: RESPONCED_EMAIL, payload })
+export const responsedEmail = payload => ({ type: RESPONSED_EMAIL, payload })
 
 export const registerRequest = (form) => async dispatch => {
    try {
@@ -47,7 +47,7 @@ export const restorePasswordRequest = (email) => async dispatch => {
       const data = await Api.restorePassword(email)
       console.log("restorePasswordData", data)
       dispatch(setMessage(data))
-      dispatch(responcedEmail(true))
+      dispatch(responsedEmail(true))
    } catch (error) {
       dispatch(setAuthError(error))
    }

@@ -5,7 +5,7 @@ import {
    SET_USER,
    SET_MESSAGE,
    CLEAR_USER,
-   RESPONCED_EMAIL,
+   RESPONSED_EMAIL,
 } from '../actions/auth'
 
 const initialState = {
@@ -15,7 +15,7 @@ const initialState = {
    error: null,
    message: '',
    isAuth: !!getCookie('accessToken'),
-   isResponcedEmail: false,
+   isResponsedEmail: false,
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -47,10 +47,10 @@ export const authReducer = (state = initialState, action) => {
             ...initialState,
             isAuth: false
          }
-      case RESPONCED_EMAIL:
+      case RESPONSED_EMAIL:
          return {
             ...state,
-            isResponcedEmail: action.payload,
+            isResponsedEmail: action.payload,
          }
       case SET_AUTH_ERROR:
          return {

@@ -20,13 +20,13 @@ export const ingredientsReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: true,
-        error: false,
+        error: null,
       }
     case SET_INGREDIENTS_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        error: false,
+        error: null,
         ingredients: action.payload,
       }
     case INCREASE_COUNT:

@@ -10,7 +10,7 @@ import styles from './login.module.css'
 export const RestorePassword = () => {
 
   const dispatch = useDispatch()
-  const { error, isResponcedEmail, isLoading } = useSelector(state => state.auth)
+  const { error, isResponsedEmail, isLoading } = useSelector(state => state.auth)
 
   const [email, setEmail] = useState('')
 
@@ -24,7 +24,7 @@ export const RestorePassword = () => {
     setEmail('')
   }, [email, dispatch])
 
-  if (isResponcedEmail) {
+  if (isResponsedEmail) {
     return (
       <Redirect
         to={{

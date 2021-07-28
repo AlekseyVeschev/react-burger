@@ -2,14 +2,14 @@ import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { responcedEmail, setNewPassword } from '../services/actions/auth'
+import { responsedEmail, setNewPassword } from '../services/actions/auth'
 import { Loading } from '../components/loading/loading'
 import styles from './login.module.css'
 
 export const SaveNewPassword = () => {
 
   const dispatch = useDispatch()
-  const { error, isResponcedEmail, isLoading } = useSelector(state => state.auth)
+  const { error, isResponsedEmail, isLoading } = useSelector(state => state.auth)
 
   const [form, setForm] = useState({ password: '', token: '' })
 
@@ -18,7 +18,7 @@ export const SaveNewPassword = () => {
   }
   useEffect(() => {
     return () => {
-      dispatch(responcedEmail(false))
+      dispatch(responsedEmail(false))
     }
   }, [dispatch])
 
@@ -28,7 +28,7 @@ export const SaveNewPassword = () => {
     setForm({ password: '', token: '' })
   }, [form, dispatch])
 
-  if (!isResponcedEmail) {
+  if (!isResponsedEmail) {
     return (
       <Redirect
         to={{
