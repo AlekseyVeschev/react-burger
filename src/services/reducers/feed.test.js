@@ -11,7 +11,9 @@ const testState = {
 }
 
 describe('feedReducer', () => {
-
+  it('should return the initialState', () => {
+    expect(feedReducer(undefined, {})).toEqual(testState)
+  })
   it('should return orders = newOrders', () => {
     const payload = {
       orders: [{ id: 1 }, { id: 2 }],

@@ -13,6 +13,9 @@ const testState = {
 }
 
 describe('ingredientsReducer', () => {
+  it('should return the initialState', () => {
+    expect(ingredientsReducer(undefined, {})).toEqual(testState)
+  })
   it('should return ingredients = newIngredients', () => {
     const ingredients = [{ id: 1 }, { id: 2 }]
     expect(ingredientsReducer(testState, setIngredients(ingredients))).toEqual(
