@@ -24,14 +24,14 @@ const request = async (url, { body, method = 'GET', headers = {} } = {}) => {
       body: JSON.stringify(body),
    })
 
-   if (response.status === 401) {
+   const data = await response.json()
+   if (response.status === 401 && data.message === "You should be authorised") {
       const data = await Api.updateAccessToken()
+
       if (data.success) {
          return request(url, { body, method, headers })
       }
    }
-
-   const data = await response.json()
 
    if (!data.success) {
       throw data

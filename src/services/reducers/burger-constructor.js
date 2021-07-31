@@ -26,7 +26,7 @@ export const constructorReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: true,
-        error: false,
+        error: null,
       }
     case SET_SELECTED_INGREDIENT:
       if (action.payload.type === INGREDIENTS_TYPES.bun) {
