@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector } from '../utils/hooks'
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom'
 import { OrdersFeed } from '../pages/orders-feed'
 import { Modal } from '../components/modal/modal'
