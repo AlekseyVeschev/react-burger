@@ -35,9 +35,10 @@ export const ProfileLayout = () => {
       dispatch(wsHistoryStart())
    }, [dispatch])
 
-   const navBarLinks = useMemo(() =>
-      ['/profile', '/profile/orders', isShowModal ? '/profile/orders/:id' : ''],
-      [isShowModal])
+   const navBarLinks = useMemo(
+      () => ['/profile', '/profile/orders', isShowModal ? '/profile/orders/:id' : ''],
+      [isShowModal]
+   )
 
    return (
       <div className={`${styles.root}`}>
