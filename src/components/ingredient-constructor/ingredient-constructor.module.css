@@ -1,9 +1,0 @@
-.element {
-  display: flex;
-  align-items: center;
-  cursor: move;
- }
- .void {
-  height: 20px ;
-  background-color: red;
- }
