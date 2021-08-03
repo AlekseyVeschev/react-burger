@@ -1,3 +1,5 @@
+import { TAuthActions } from './../actions/auth';
+import { TUser } from './../../types/data';
 import { authReducer } from './auth'
 import { setUser } from '../actions/auth'
 
@@ -13,10 +15,10 @@ const testState = {
 
 describe('authReducer', () => {
    it('should return the initialState', () => {
-      expect(authReducer(undefined, {} as any)).toEqual(testState)
+      expect(authReducer(undefined, {} as TAuthActions)).toEqual(testState)
    })
    it('should return newState', () => {
-      const user: any = {
+      const user: TUser = {
          name: "Ivan",
          email: 'Ivan@ru'
       }

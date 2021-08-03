@@ -10,7 +10,7 @@ import {
   CLEAR_COUNTS,
 } from '../actions/burger-ingredients'
 
-const initialState = {
+export const initialState = {
   ingredients: [] as Array<TIngredient>,
   isLoading: false,
   error: null as TError | null

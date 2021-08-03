@@ -12,7 +12,7 @@ import {
   TConstructorActions,
 } from '../actions/burger-constructor'
 
-const initialState = {
+export const initialState = {
   selectedIngredients: [] as Array<TIngredient>,
   selectedBun: null as TIngredient | null,
   bunsSum: 0,

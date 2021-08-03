@@ -1,67 +1,50 @@
-import { ingredientsReducer } from './burger-ingredients'
+import { TIngredient } from './../../types/data';
+import { TIngredientsActions } from './../actions/burger-ingredients';
+import { ingredientsReducer, initialState } from './burger-ingredients'
 import {
   setIngredients,
-  increaseCount,
   decreaseCount,
   clearCounts
 } from '../actions/burger-ingredients'
 
-const testState = {
-  ingredients: [],
-  isLoading: false,
-  error: null,
-}
+const ingredients: Array<TIngredient> = [
+  { _id: "1", name: "1", type: "main", price: 2, count: 1 },
+  { _id: "2", name: "2", type: "bun", price: 4, count: 2 }]
 
 describe('ingredientsReducer', () => {
   it('should return the initialState', () => {
-    expect(ingredientsReducer(undefined, {} as any)).toEqual(testState)
+    expect(ingredientsReducer(undefined, {} as TIngredientsActions)).toEqual(initialState)
   })
   it('should return ingredients = newIngredients', () => {
-    const ingredients: any = [{ id: 1 }, { id: 2 }]
-    expect(ingredientsReducer(testState, setIngredients(ingredients))).toEqual(
+    expect(ingredientsReducer(initialState, setIngredients(ingredients))).toEqual(
       {
-        ...testState,
-        ingredients: [{ id: 1 }, { id: 2 }]
+        ...initialState,
+        ingredients: [
+          { _id: "1", name: "1", type: "main", price: 2, count: 1 },
+          { _id: "2", name: "2", type: "bun", price: 4, count: 2 }
+        ]
       }
     )
   })
   it('should return decrease count by id', () => {
-    const testState: any = {
-      ingredients: [
-        {
-          _id: '5',
-          count: 4
-        }
-      ]
-    }
-    expect(ingredientsReducer(testState, decreaseCount('5'))).toEqual(
+
+    expect(ingredientsReducer({ ...initialState, ingredients }, decreaseCount('2'))).toEqual(
       {
-        ...testState,
+        ...initialState,
         ingredients: [
-          {
-            _id: '5',
-            count: 3
-          }]
+          { _id: "1", name: "1", type: "main", price: 2, count: 1 },
+          { _id: "2", name: "2", type: "bun", price: 4, count: 1 }
+        ]
       }
     )
   })
   it('should return clear counts', () => {
-    const testState: any = {
-      ingredients: [
-        { count: 4 },
-        { count: 3 },
-        { count: 2 },
-      ],
-      isLoading: false,
-      error: null,
-    }
-    expect(ingredientsReducer(testState, clearCounts())).toEqual(
+    expect(ingredientsReducer({ ...initialState, ingredients }, clearCounts())).toEqual(
       {
-        ...testState,
+        ...initialState,
         ingredients: [
-          { count: null },
-          { count: null },
-          { count: null },
+          { _id: "1", name: "1", type: "main", price: 2, count: null },
+          { _id: "2", name: "2", type: "bun", price: 4, count: null }
         ]
       }
     )

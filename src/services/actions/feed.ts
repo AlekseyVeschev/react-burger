@@ -19,5 +19,7 @@ export const wsFeedStart = () => ({ type: WS_FEED_CONNECTION_START } as const)
 export const wsFeedConnectionSuccess = () => ({ type: WS_FEED_CONNECTION_SUCCESS } as const)
 export const wsFeedConnectionError = (payload: TError) => ({ type: WS_FEED_CONNECTION_ERROR, payload } as const)
 export const wsFeedConnectionClosed = () => ({ type: WS_FEED_CONNECTION_CLOSED } as const)
-export const wsFeedGetMessage = (payload: TFeedState) => ({ type: WS_FEED_GET_MESSAGE, payload } as const)
+export const wsFeedGetMessage = (payload: Pick<TFeedState, 'orders' | 'totalToday' | 'total'>) => ({
+   type: WS_FEED_GET_MESSAGE, payload
+} as const)
 export const setCurrentNumber = (payload: number) => ({ type: SET_CURRENT_NUMBER, payload } as const)

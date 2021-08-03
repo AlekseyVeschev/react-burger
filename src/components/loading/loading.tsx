@@ -1,7 +1,8 @@
+import { FC } from 'react'
 import logo from '../../images/logo.svg'
 import styles from './loading.module.css'
 
-export const Loading = () => {
+export const Loading: FC = () => {
 
    return (
       <div className={styles.root}>

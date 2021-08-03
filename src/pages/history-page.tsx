@@ -13,7 +13,6 @@ export const HistoryPage: FC<THistoryPage> = ({ title }) => {
 
   const { ingredients: ingredientsAll } = useSelector(state => state.ingredients)
   const { orders } = useSelector(state => state.history)
-  console.log('HistoryPage')
 
   return (
     <OrderPage

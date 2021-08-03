@@ -7,7 +7,7 @@ type TIngredientsGroup = {
    id: TIngredient["_id"],
    title: string,
    ingredients: Array<TIngredient>,
-   observer: any,
+   observer: IntersectionObserver,
    onClickIngredient: (_id: string) => void,
    addIngredientMobile: (_id: string) => void,
 }
@@ -17,7 +17,7 @@ export const IngredientsGroup: FC<TIngredientsGroup> = ({
    observer, onClickIngredient, addIngredientMobile
 }) => {
 
-   const [refElement, setRef] = useState<any>(null)
+   const [refElement, setRef] = useState<HTMLElement | null>(null)
 
    useEffect(() => {
       if (refElement && observer) {

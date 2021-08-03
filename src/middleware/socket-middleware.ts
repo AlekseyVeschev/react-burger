@@ -11,7 +11,7 @@ export type WSMiddlewareActions = {
    wsSendMessage: string;
 }
 
-export const socketMiddleware = (wsUrl: string, wsActions: WSMiddlewareActions): Middleware => {
+export const socketMiddleware = <TActions extends WSMiddlewareActions>(wsUrl: string, wsActions: TActions): Middleware => {
    return ({ dispatch }: MiddlewareAPI) => {
       let socket: WebSocket | null = null
 
@@ -37,7 +37,7 @@ export const socketMiddleware = (wsUrl: string, wsActions: WSMiddlewareActions):
                dispatch({ type: onError, payload: event })
             }
 
-            socket.onmessage = (event: any) => {
+            socket.onmessage = (event: MessageEvent) => {
                const { data } = event
                const { success, ...payload } = JSON.parse(data)
 
@@ -50,7 +50,7 @@ export const socketMiddleware = (wsUrl: string, wsActions: WSMiddlewareActions):
                dispatch({ type: onMessage, payload })
             }
 
-            socket.onclose = (event: Event) => {
+            socket.onclose = (event: CloseEvent) => {
                dispatch({ type: onClose, payload: event })
             }
          }

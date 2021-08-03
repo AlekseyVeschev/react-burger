@@ -10,13 +10,15 @@ import {
    TAuthActions
 } from '../actions/auth'
 
+const accessToken = getCookie('accessToken');
+
 const initialState = {
    name: '',
    email: '',
    isLoading: false,
    error: null as TError | null,
    message: '',
-   isAuth: !!getCookie('accessToken'),
+   isAuth: !!accessToken,
    isResponsedEmail: false,
 }
 export type TAuthState = typeof initialState
@@ -46,6 +48,7 @@ export const authReducer = (state = initialState, action: TAuthActions): TAuthSt
             error: null,
          }
       case CLEAR_USER:
+         console.log("CLEAR_USERCLEAR_USER")
          return {
             ...initialState,
             isAuth: false
@@ -56,6 +59,7 @@ export const authReducer = (state = initialState, action: TAuthActions): TAuthSt
             isResponsedEmail: action.payload,
          }
       case SET_AUTH_ERROR:
+         console.log("SET_AUTH_ERRORSET_AUTH_ERROR")
          return {
             ...state,
             isLoading: false,

@@ -1,7 +1,7 @@
 import { INGREDIENTS_TYPES } from './constants'
 import { TIngredient } from './../types/data';
 
-export const getIngredientsSum = (ingredientsAll: ReadonlyArray<TIngredient> = [], selectedIds: Array<TIngredient['_id']> = []) => {
+export const getIngredientsSum = (ingredientsAll: Array<TIngredient> = [], selectedIds: Array<TIngredient['_id']> = []) => {
    let result = 0
    selectedIds?.forEach(id => {
       ingredientsAll?.forEach(ing => {

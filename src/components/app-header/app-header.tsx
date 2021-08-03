@@ -1,10 +1,11 @@
+import { FC } from "react"
 import { NavLink } from "react-router-dom"
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { MenuIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons"
 import logo from "../../images/logo.svg"
 import styles from './app-header.module.css'
 
-export const AppHeader = () => {
+export const AppHeader: FC = () => {
 
    return (
       <div className={styles.root}>

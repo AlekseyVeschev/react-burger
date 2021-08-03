@@ -8,7 +8,7 @@ import {
   TFeedActions,
 } from '../actions/feed'
 
-const initialState = {
+export const initialState = {
   orders: [] as Array<TOrder>,
   total: null as number | null,
   totalToday: null as number | null,

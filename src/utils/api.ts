@@ -2,17 +2,13 @@ import { BASE_URL } from "./constants"
 import { store } from '../services/store'
 import { getCookie } from './cookies'
 import { saveTokens, deleteTokens } from './tokens'
-import { TIngredient, TForm } from './../types/data';
+import { TIngredient, TForm, TSetOrder, TTokens, TUser, TResetPasswordResponse } from './../types/data';
 import { clearUser } from "../services/actions/auth"
 
 type THeaders = Record<string, string>
 
-type TResponseBody<TDataKey extends string = '', TDataType = {}> = {
-   [key in TDataKey]: TDataType
-} & {
+type TResponseBody<TDataType = {}> = TDataType & {
    success: boolean;
-   message?: string;
-   headers?: THeaders;
 };
 
 enum RequestMethod {
@@ -27,8 +23,7 @@ type TRequestBody<TBody> = Partial<{
    method: RequestMethod,
    headers: THeaders
 }>
-
-const request = async <TBody>(url: string, { body, method = RequestMethod.get, headers = {} }: TRequestBody<TBody> = {}): Promise<any> => {
+const request = async <TData = {}, TBody = unknown>(url: string, { body, method = RequestMethod.get, headers = {} }: TRequestBody<TBody> = {}): Promise<TResponseBody<TData>> => {
    const defaultHeaders: THeaders = {
       'Content-Type': 'application/json',
    }
@@ -64,39 +59,40 @@ const request = async <TBody>(url: string, { body, method = RequestMethod.get, h
 }
 
 export const Api = {
-   getIngredients: async (): Promise<TResponseBody<'ingredients', ReadonlyArray<TIngredient>>
-   > => {
-      const { data }: any = await request(`/ingredients`)
+   getIngredients: async () => {
+      const { data } = await request<{ data: Array<TIngredient> }>(`/ingredients`)
       return data
    },
-   createOrder: async (idIngredients: string) => {
-      return await request(`/orders`, {
+   createOrder: async (idIngredients: string[]) => {
+      const { order } = await request<{ order: TSetOrder }>(`/orders`, {
          method: RequestMethod.post,
          body: { ingredients: idIngredients },
       })
+
+      return order
    },
 
    register: async (form: TForm) => {
-      const data = await request(`/auth/register`, {
+      const { refreshToken, accessToken, ...data } = await request<TTokens & TUser>(`/auth/register`, {
          method: RequestMethod.post,
          body: form,
       })
 
-      saveTokens(data)
+      saveTokens({ refreshToken, accessToken })
       return data
    },
 
    login: async (form: TForm) => {
-      const data = await request(`/auth/login`, {
+      const { refreshToken, accessToken, user } = await request<TTokens & { user: TUser }>(`/auth/login`, {
          method: RequestMethod.post,
          body: form,
       })
-      saveTokens(data)
-      return data
+      saveTokens({ refreshToken, accessToken })
+      return user
    },
 
    updateAccessToken: async () => {
-      const data = await request(`/auth/token`, {
+      const data = await request<TTokens & TResetPasswordResponse>(`/auth/token`, {
          method: RequestMethod.post,
          body: {
             token: localStorage.getItem('refreshToken')
@@ -123,7 +119,7 @@ export const Api = {
    },
 
    restorePassword: async (email: string) => {
-      return await request(`/password-reset`, {
+      return await request<TResetPasswordResponse>(`/password-reset`, {
          method: RequestMethod.post,
          body: {
             email
@@ -132,20 +128,24 @@ export const Api = {
    },
 
    setPassword: async (form: TForm) => {
-      return await request(`/password-reset/reset`, {
+      return await request<TResetPasswordResponse>(`/password-reset/reset`, {
          method: RequestMethod.post,
          body: form,
       })
    },
 
    getUser: async () => {
-      return await request(`/auth/user`)
+      const { user } = await request<{ user: TUser }>(`/auth/user`)
+
+      return user
    },
 
    updateUser: async (form: TForm) => {
-      return await request(`/auth/user`, {
+      const { user } = await request<{ user: TUser }>(`/auth/user`, {
          method: RequestMethod.patch,
          body: form,
       })
+
+      return user
    }
 }

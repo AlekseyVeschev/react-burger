@@ -1,61 +1,66 @@
+import { TIngredient, TSetOrder } from './../../types/data';
 import { INGREDIENTS_TYPES } from '../../utils/constants'
-import { constructorReducer } from './burger-constructor'
+import { constructorReducer, initialState } from './burger-constructor'
 import {
-  clearConstructor,
   setConstructorLoading,
   setSelectedIngredient,
-  setOrder
+  setOrder,
+  TConstructorActions
 } from '../actions/burger-constructor'
 
-const testState: any = {
-  selectedIngredients: [],
-  selectedBun: null,
-  bunsSum: 0,
-  ingredientsSum: 0,
-  orderNumber: null,
-  isLoading: false,
-  error: null,
-}
 
 describe('constructorReducer', () => {
   it('should return the initialState', () => {
-    expect(constructorReducer(undefined, {} as any)).toEqual(testState)
+    expect(constructorReducer(undefined, {} as TConstructorActions)).toEqual(initialState)
   })
   it('should return isLoading = true', () => {
-    expect(constructorReducer(testState, setConstructorLoading())).toEqual(
+    expect(constructorReducer(initialState, setConstructorLoading())).toEqual(
       {
-        ...testState,
+        ...initialState,
         isLoading: true
       }
     )
   })
   it('if type= bun, should return bunsSum = price*2', () => {
-    const ingredient: any =
-      { type: INGREDIENTS_TYPES.bun, price: 1 }
-    expect(constructorReducer(testState, setSelectedIngredient(ingredient))).toEqual(
+    const ingredient: TIngredient = {
+      type: INGREDIENTS_TYPES.bun,
+      price: 2, _id: "",
+      name: "",
+      image_mobile: "",
+      image_large: "",
+      image: ""
+    }
+    expect(constructorReducer(initialState, setSelectedIngredient(ingredient))).toEqual(
       {
-        ...testState,
+        ...initialState,
         selectedBun: ingredient,
-        bunsSum: 2,
+        bunsSum: 4,
       }
     )
   })
   it('should return ingredientsSum = price', () => {
-    const ingredient: any =
-      { type: INGREDIENTS_TYPES.sauce, price: 2 }
-    expect(constructorReducer(testState, setSelectedIngredient(ingredient))).toEqual(
+    const ingredient: TIngredient = {
+      type: INGREDIENTS_TYPES.main,
+      price: 4,
+      _id: "",
+      name: "",
+      image_mobile: "",
+      image_large: "",
+      image: ""
+    }
+    expect(constructorReducer(initialState, setSelectedIngredient(ingredient))).toEqual(
       {
-        ...testState,
+        ...initialState,
         selectedIngredients: [ingredient],
-        ingredientsSum: 2,
+        ingredientsSum: 4,
       }
     )
   })
   it('should return orderNumber === newOrderNumber', () => {
-    const payload: any = { number: 5 }
-    expect(constructorReducer(testState, setOrder(payload))).toEqual(
+    const payload: TSetOrder = { number: 5 }
+    expect(constructorReducer(initialState, setOrder(payload))).toEqual(
       {
-        ...testState,
+        ...initialState,
         orderNumber: 5
       }
     )

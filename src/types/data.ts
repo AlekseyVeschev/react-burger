@@ -22,13 +22,30 @@ export type TOrder = {
    readonly updatedAt: string;
    readonly ingredients: Array<string>;
 }
+export type TSetOrder = Pick<TOrder, 'number'>;
+
 export type TError = {
    success?: string,
    message?: string;
+   type?: string;
    code?: number;
 }
 export type TForm = {
    email: string;
    password: string;
    name?: string;
+}
+
+export type TTokens = {
+   refreshToken: string;
+   accessToken: string;
+}
+
+export type TUser = {
+   name: string;
+   email: string;
+}
+
+export type TResetPasswordResponse = {
+   message: string;
 }

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSelector, useDispatch } from '../utils/hooks'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { getUserRequest, updateUserRequest } from '../services/actions/auth'
+import { updateUserRequest } from '../services/actions/auth'
 import { Loading } from '../components/loading/loading'
 import styles from './profile.module.css'
 
@@ -47,10 +47,6 @@ export const Profile = () => {
     })
   }, [setForm, email, name])
 
-  useEffect(() => {
-    dispatch(getUserRequest())
-  }, [dispatch])
-
   return (
     <form
       onSubmit={handleSubmit}
@@ -58,7 +54,7 @@ export const Profile = () => {
     >
       {error &&
         <p className={`${styles.error} text text_type_main-medium`} >
-          {error}
+          {error.message}
         </p>
       }
       {isLoading && <Loading />}

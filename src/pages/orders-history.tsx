@@ -22,7 +22,7 @@ export const OrdersHistory = () => {
     <div className={`${styles.wrapper} mt-5 ml-5`}>
       {!!error &&
         <p className="text text_type_main-medium">
-          {error}
+          {error.message}
         </p>
       }
       <ul className={`${styles.cards} p-1`}>

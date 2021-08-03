@@ -1,30 +1,45 @@
-import { wsFeedGetMessage } from './../actions/feed';
-import { feedReducer } from './feed'
+import { TOrder } from './../../types/data';
+import { TFeedState } from './../reducers/feed';
+import { wsFeedGetMessage, TFeedActions } from './../actions/feed';
+import { feedReducer, initialState } from './feed'
+import { createMockOrder } from './history.test';
 
-const testState = {
-  orders: [],
-  total: null,
-  totalToday: null,
-  currentNumber: null,
-  isLoading: false,
-  error: null,
+type TPayload = {
+  orders: TOrder[],
+  total: number,
+  totalToday: number
 }
 
+const payload: TPayload = {
+  orders: [createMockOrder('1'), createMockOrder('2')],
+  total: 5,
+  totalToday: 2
+}
 describe('feedReducer', () => {
   it('should return the initialState', () => {
-    expect(feedReducer(undefined, {} as any)).toEqual(testState)
+    expect(feedReducer(undefined, {} as TFeedActions)).toEqual(initialState)
   })
   it('should return orders = newOrders', () => {
-    const payload: any = {
-      orders: [{ id: 1 }, { id: 2 }],
-      total: 5,
-      totalToday: 2,
-    }
-
-    expect(feedReducer(testState, wsFeedGetMessage(payload))).toEqual(
+    expect(feedReducer(initialState, wsFeedGetMessage(payload))).toEqual(
       {
-        ...testState,
-        orders: [{ id: 1 }, { id: 2 }],
+        ...initialState,
+        orders: [{
+          _id: '1',
+          name: '',
+          status: '',
+          createdAt: '',
+          updatedAt: '',
+          number: 0,
+          ingredients: []
+        }, {
+          _id: '2',
+          name: '',
+          status: '',
+          createdAt: '',
+          updatedAt: '',
+          number: 0,
+          ingredients: []
+        }],
         total: 5,
         totalToday: 2,
       }

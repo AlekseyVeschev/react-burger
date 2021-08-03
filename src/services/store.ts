@@ -29,7 +29,7 @@ const wsFeedActions = {
   onError: WS_FEED_CONNECTION_ERROR,
   onMessage: WS_FEED_GET_MESSAGE,
   wsSendMessage: WS_FEED_SEND_MESSAGE,
-}
+} as const
 const wsFeed = socketMiddleware(wsFeedUrl, wsFeedActions)
 
 const wsHistoryUrl = 'wss://norma.nomoreparties.space/orders'
@@ -40,7 +40,7 @@ const wsHistoryActions = {
   onError: WS_HISTORY_CONNECTION_ERROR,
   onMessage: WS_HISTORY_GET_MESSAGE,
   wsSendMessage: WS_HISTORY_SEND_MESSAGE,
-}
+} as const
 const wsHistory = socketMiddleware(wsHistoryUrl, wsHistoryActions)
 
 declare global {

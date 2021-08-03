@@ -7,7 +7,7 @@ type TModalOverlay = {
 
 export const ModalOverlay: FC<TModalOverlay> = ({ onClose }) => {
    useEffect(() => {
-      const handleESCclose = (e: any) => {
+      const handleESCclose = (e: KeyboardEvent) => {
          if (e.code === "Escape") {
             onClose()
          }

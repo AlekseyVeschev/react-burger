@@ -8,7 +8,7 @@ export function getCookie(name: string): string | undefined {
 export function setCookie(
    name: string,
    value: string,
-   props: { [key: string]: any } & { expires?: number | Date | string } = {}
+   props: Record<string, any> & { expires?: number | Date | string } = {}
 ) {
    props = props || {}
    let exp = props.expires
@@ -29,9 +29,10 @@ export function setCookie(
          updatedCookie += '=' + propValue
       }
    }
+   console.log('updatedCookie', updatedCookie)
    document.cookie = updatedCookie
 }
 
 export function deleteCookie(name: string) {
-   setCookie(name, '', { expires: -1 })
+   setCookie(name, ' ', { expires: -1 })
 }

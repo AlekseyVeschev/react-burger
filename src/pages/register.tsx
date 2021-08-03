@@ -29,7 +29,7 @@ export const Register = () => {
       {isLoading && <Loading />}
       {error &&
         <p className={`${styles.error} text text_type_main-medium`} >
-          {error}
+          {error.message}
         </p>
       }
       <form

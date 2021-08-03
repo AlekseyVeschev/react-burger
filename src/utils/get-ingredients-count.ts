@@ -5,7 +5,7 @@ type TIngredientCountsById = {
    [key: string]: number
 }
 
-export const getIngredientsCount = (ingredientsAll: ReadonlyArray<TIngredient> = [], selectedIds: Array<TIngredient["_id"]> = []) => {
+export const getIngredientsCount = (ingredientsAll: Array<TIngredient> = [], selectedIds: Array<TIngredient["_id"]> = []) => {
    const ingredientCountsById: TIngredientCountsById = {}
    selectedIds?.forEach((id) => {
       ingredientCountsById[id] = (ingredientCountsById[id] || 0) + 1

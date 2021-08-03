@@ -1,4 +1,4 @@
-import { TIngredient } from './../../types/data';
+import { TIngredient, TSetOrder, TError } from './../../types/data';
 import { AppDispatch, AppThunk } from './../../types/index';
 import { Api } from '../../utils/api'
 
@@ -19,9 +19,6 @@ type TSortIngredient = {
    dragIndex: number,
    hoverIndex: number
 }
-type TSetOrder = {
-   number: number
-}
 
 export type TConstructorActions = ReturnType<typeof setConstructorLoading>
    | ReturnType<typeof setConstructorError>
@@ -33,7 +30,7 @@ export type TConstructorActions = ReturnType<typeof setConstructorLoading>
    | ReturnType<typeof removeOrder>
 
 export const setConstructorLoading = () => ({ type: SET_CONSTRUCTOR_LOADING } as const)
-export const setConstructorError = (payload: any) => ({ type: SET_CONSTRUCTOR_ERROR, payload } as const)
+export const setConstructorError = (payload: TError) => ({ type: SET_CONSTRUCTOR_ERROR, payload } as const)
 export const setSelectedIngredient = (payload: TIngredient) => ({ type: SET_SELECTED_INGREDIENT, payload } as const)
 export const removeConstructorIngredient = (payload: TRemoveIngredient) => ({ type: REMOVE_CONSTRUCTOR_INGREDIENT, payload } as const)
 export const clearConstructor = () => ({ type: CLEAR_CONSTRURTOR } as const)
@@ -44,9 +41,9 @@ export const removeOrder = () => ({ type: REMOVE_ORDER } as const)
 export const createOrder: AppThunk = (ids) => async (dispatch: AppDispatch) => {
    try {
       dispatch(setConstructorLoading())
-      const { order } = await Api.createOrder(ids)
+      const order = await Api.createOrder(ids)
       dispatch(setOrder(order))
    } catch (error) {
-      dispatch(setConstructorError(error))
+      dispatch(setConstructorError(error as TError))
    }
 }

@@ -7,7 +7,7 @@ export const saveTokens = ({ refreshToken = '', accessToken = '' } = {}) => {
       authToken = accessToken.split('Bearer ')[1]
    }
    if (authToken) {
-      setCookie('accessToken', authToken, { expires: 20 * 60 })
+      setCookie('accessToken', authToken, { expires: 20 * 60, path: '/' })
    }
 }
 

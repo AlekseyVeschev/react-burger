@@ -7,7 +7,7 @@ import {
   THistoryActions,
 } from '../actions/history'
 
-const initialState = {
+export const initialState = {
   orders: [] as Array<TOrder>,
   isLoading: false,
   error: null as TError | null,

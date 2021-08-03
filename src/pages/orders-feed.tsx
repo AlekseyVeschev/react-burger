@@ -36,7 +36,7 @@ export const OrdersFeed = () => {
       <div className={styles.wrapper}>
         <ul className={`${styles.cards} p-1`}>
           {error && <p className={`${styles.error} text text_type_main-medium`} >
-            {error}
+            {error.message}
           </p>}
           {orders?.map(order =>
             <OrderCard

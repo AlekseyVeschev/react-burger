@@ -1,3 +1,4 @@
+import { TError } from './../../types/data';
 import { TAuthState } from './../reducers/auth';
 import { Api } from '../../utils/api'
 import { AppDispatch, AppThunk } from '../../types';
@@ -17,9 +18,9 @@ export type TAuthActions = ReturnType<typeof setAuthLoading>
    | ReturnType<typeof responsedEmail>
 
 export const setAuthLoading = () => ({ type: SET_AUTH_LOADING } as const)
-export const setAuthError = (payload: any) => ({ type: SET_AUTH_ERROR, payload } as const)
-export const setUser = (payload: TAuthState) => ({ type: SET_USER, payload } as const)
-export const setMessage = (payload: TAuthState) => ({ type: SET_MESSAGE, payload } as const)
+export const setAuthError = (payload: TError) => ({ type: SET_AUTH_ERROR, payload } as const)
+export const setUser = (payload: Pick<TAuthState, 'name' | 'email'>) => ({ type: SET_USER, payload } as const)
+export const setMessage = (payload: Pick<TAuthState, 'message'>) => ({ type: SET_MESSAGE, payload } as const)
 export const clearUser = () => ({ type: CLEAR_USER } as const)
 export const responsedEmail = (payload: boolean) => ({ type: RESPONSED_EMAIL, payload } as const)
 
@@ -29,16 +30,16 @@ export const registerRequest: AppThunk = (form) => async (dispatch: AppDispatch)
       const data = await Api.register(form)
       dispatch(setUser(data))
    } catch (error) {
-      dispatch(setAuthError(error))
+      dispatch(setAuthError(error as TError))
    }
 }
 export const loginRequest: AppThunk = (form) => async (dispatch: AppDispatch) => {
    try {
       dispatch(setAuthLoading())
       const data = await Api.login(form)
-      dispatch(setUser(data.user))
+      dispatch(setUser(data))
    } catch (error) {
-      dispatch(setAuthError(error))
+      dispatch(setAuthError(error as TError))
    }
 }
 export const logoutRequest: AppThunk = () => async (dispatch: AppDispatch) => {
@@ -47,18 +48,17 @@ export const logoutRequest: AppThunk = () => async (dispatch: AppDispatch) => {
       await Api.logout()
       dispatch(clearUser())
    } catch (error) {
-      dispatch(setAuthError(error))
+      dispatch(setAuthError(error as TError))
    }
 }
 export const restorePasswordRequest: AppThunk = (email) => async (dispatch: AppDispatch) => {
    try {
       dispatch(setAuthLoading())
       const data = await Api.restorePassword(email)
-      console.log("restorePasswordData", data)
       dispatch(setMessage(data))
       dispatch(responsedEmail(true))
    } catch (error) {
-      dispatch(setAuthError(error))
+      dispatch(setAuthError(error as TError))
    }
 }
 export const setNewPassword: AppThunk = (form) => async (dispatch: AppDispatch) => {
@@ -67,24 +67,24 @@ export const setNewPassword: AppThunk = (form) => async (dispatch: AppDispatch) 
       const data = await Api.setPassword(form)
       dispatch(setMessage(data))
    } catch (error) {
-      dispatch(setAuthError(error))
+      dispatch(setAuthError(error as TError))
    }
 }
 export const getUserRequest: AppThunk = () => async (dispatch: AppDispatch) => {
    try {
       dispatch(setAuthLoading())
       const data = await Api.getUser()
-      dispatch(setUser(data.user))
+      dispatch(setUser(data))
    } catch (error) {
-      dispatch(setAuthError(error))
+      dispatch(setAuthError(error as TError))
    }
 }
 export const updateUserRequest: AppThunk = (form) => async (dispatch: AppDispatch) => {
    try {
       dispatch(setAuthLoading())
       const data = await Api.updateUser(form)
-      dispatch(setUser(data.user))
+      dispatch(setUser(data))
    } catch (error) {
-      dispatch(setAuthError(error))
+      dispatch(setAuthError(error as TError))
    }
 }

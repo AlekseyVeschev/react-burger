@@ -7,10 +7,9 @@ import styles from './modal.module.css'
 type TModal = {
    title?: string,
    onClose: () => void,
-   children: any
 }
 
-export const Modal: FC<TModal> = ({ title, onClose, ...props }) => {
+export const Modal: FC<TModal> = ({ title, onClose, children }) => {
 
    const portalDiv = document.getElementById('react-modals');
 
@@ -30,7 +29,7 @@ export const Modal: FC<TModal> = ({ title, onClose, ...props }) => {
                   <CloseIcon type="primary" />
                </button>
             </header>
-            {props.children}
+            {children}
          </div>
       </>,
       portalDiv
