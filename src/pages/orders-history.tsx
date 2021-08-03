@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from '../utils/hooks'
 import { OrderCard } from '../components/order-card/order-card'
 import { setCurrentNumber } from '../services/actions/feed'
 import styles from './orders-history.module.css'
+import { Loading } from '../components/loading/loading'
 
 
 export const OrdersHistory = () => {
@@ -11,7 +12,7 @@ export const OrdersHistory = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const { error } = useSelector(state => state.auth)
-  const { orders } = useSelector(state => state.history)
+  const { orders, isLoading } = useSelector(state => state.history)
 
   const handlelClick = useCallback((id, number) => {
     dispatch(setCurrentNumber(number))
@@ -25,6 +26,7 @@ export const OrdersHistory = () => {
           {error.message}
         </p>
       }
+      {isLoading && <Loading />}
       <ul className={`${styles.cards} p-1`}>
         {orders?.map(order =>
           <OrderCard
