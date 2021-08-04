@@ -43,7 +43,10 @@ const request = async <TData = {}, TBody = unknown>(url: string, { body, method 
    })
 
    const data = await response.json()
-   if (response.status === 401 && data.message === "You should be authorised") {
+
+   const isShoudBeAuthorized = response.status === 401 && data.message === "You should be authorised";
+   const isJwtExperied = response.status === 403 && data.message === "jwt expired";
+   if (isShoudBeAuthorized || isJwtExperied) {
       const data = await Api.updateAccessToken()
 
       if (data.success) {

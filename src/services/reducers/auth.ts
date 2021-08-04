@@ -10,7 +10,7 @@ import {
    TAuthActions
 } from '../actions/auth'
 
-const accessToken = getCookie('accessToken');
+const refreshToken = localStorage.getItem('refreshToken');
 
 const initialState = {
    name: '',
@@ -18,7 +18,7 @@ const initialState = {
    isLoading: false,
    error: null as TError | null,
    message: '',
-   isAuth: !!accessToken,
+   isAuth: !!refreshToken,
    isResponsedEmail: false,
 }
 export type TAuthState = typeof initialState

@@ -10,20 +10,34 @@
   border-radius: 6px;
 }
 .root{
+  height: 100%;
   max-width: 1240px;
+  width: 100%;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }
 .wrapper{
+  flex: 1;
   display: flex;
+  position: relative;
 }
 .cards {
-  width: 51%;
-  max-height: 700px;
+  width: 48%;
   overflow: auto;
+  position: absolute;
+    top: 0;
+    bottom: 20px;
+    right: 0;
+    left: 0;
 }
 .statistic {
-  width: 49%;
+  width: 48%;
   padding-left: 60px;
+    position: absolute;
+    top: 0;
+    bottom: 20px;
+    right: 0;
 }
 .top_block {
   display: flex;
@@ -40,9 +54,6 @@
 }
 .number_ready {
   color: #00CCCC;
-}
-.all_statistic {
-  padding-top: 60px;
 }
 .error {
   color: red;
