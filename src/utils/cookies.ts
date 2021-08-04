@@ -29,7 +29,6 @@ export function setCookie(
          updatedCookie += '=' + propValue
       }
    }
-   console.log('updatedCookie', updatedCookie)
    document.cookie = updatedCookie
 }
 
