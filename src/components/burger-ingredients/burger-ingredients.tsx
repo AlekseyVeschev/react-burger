@@ -85,20 +85,22 @@ export const BurgerIngredients = () => {
          {error ? (
             `Ошибка: ${error.message}`
          ) : (
-            <div ref={ref} className={`${styles.wrapper_section} mt-5`}>
-               {isLoading ? (
-                  <Loading />
-               ) : (SORTED_INGREDIENTS_TYPES.map((type) => (
-                  <IngredientsGroup
-                     key={type}
-                     id={type}
-                     title={INGREDIENTS_TYPES_NAME[type]}
-                     ingredients={groupedIngredients[type]}
-                     observer={observer}
-                     onClickIngredient={openIngredientModal}
-                     addIngredientMobile={addIngredient}
-                  />
-               )))}
+            <div className={styles.container} >
+               <div ref={ref} className={`${styles.wrapper_section} mt-5`}>
+                  {isLoading ? (
+                     <Loading />
+                  ) : (SORTED_INGREDIENTS_TYPES.map((type) => (
+                     <IngredientsGroup
+                        key={type}
+                        id={type}
+                        title={INGREDIENTS_TYPES_NAME[type]}
+                        ingredients={groupedIngredients[type]}
+                        observer={observer}
+                        onClickIngredient={openIngredientModal}
+                        addIngredientMobile={addIngredient}
+                     />
+                  )))}
+               </div>
             </div>
          )}
          <footer className={`${styles.footer} pt-4 pb-4 pr-1`}>

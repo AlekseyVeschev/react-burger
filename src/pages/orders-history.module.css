@@ -11,10 +11,14 @@
 }
 .wrapper{
   display: flex;
-  width: 100%;
+  flex: 1;
+  position: relative;
 }
 .cards {
-  width: 100%;
-  max-height: 848px;
   overflow: auto;
+  position: absolute;
+  top: 0;
+  bottom: 20px;
+  right: 0;
+  left: 0;
 }

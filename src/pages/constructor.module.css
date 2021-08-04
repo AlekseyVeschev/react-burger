@@ -1,10 +1,16 @@
 .root{
+  box-sizing: border-box;
   max-width: 1240px;
   margin: 0 auto;
-   }
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
 .wrapper{
    display: flex;
-   justify-content: space-between;
+   flex: 1;
+   width: 100%;
   }.wrapper_section::-webkit-scrollbar {
   width: 12px;
 }

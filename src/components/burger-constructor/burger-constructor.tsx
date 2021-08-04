@@ -100,17 +100,19 @@ export const BurgerConstructor: FC = () => {
                />
             </div>
          )}
-         <ul ref={drop} className={`${styles.wrapper_elements} mt-3 mb-3`}>
-            {selectedIngredients && selectedIngredients.map((ing, idx) =>
-               <IngredientConstructor
-                  key={`${ing._id}-${idx}`}
-                  ing={ing}
-                  idx={idx}
-                  removeIngredient={removeIngredient}
-                  moveIngredient={moveIngredient}
-               />
-            )}
-         </ul>
+         <div className={styles.container} >
+            <ul ref={drop} className={`${styles.wrapper_elements} mt-3 mb-3`}>
+               {selectedIngredients && selectedIngredients.map((ing, idx) =>
+                  <IngredientConstructor
+                     key={`${ing._id}-${idx}`}
+                     ing={ing}
+                     idx={idx}
+                     removeIngredient={removeIngredient}
+                     moveIngredient={moveIngredient}
+                  />
+               )}
+            </ul>
+         </div>
          {!!selectedBun && (
             <div className={`${styles.locked_block}`}>
                <ConstructorElement

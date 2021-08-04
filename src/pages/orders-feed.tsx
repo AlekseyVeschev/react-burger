@@ -47,7 +47,7 @@ export const OrdersFeed = () => {
           )}
         </ul>
         <div className={styles.statistic}>
-          <div className={styles.top_block}>
+          <div className={`${styles.top_block} pb-5`}>
             <div className={styles.status}>
               <p className="text text_type_main-medium pb-2">
                 Готовы:
@@ -119,22 +119,18 @@ export const OrdersFeed = () => {
               </div>
             </div>
           </div>
-          <div className={styles.all_statistic}>
-            <p className="text text_type_main-medium">
-              Выполнено за все время:
-            </p>
-            <p className="text text_type_digits-large">
-              {total}
-            </p>
-          </div>
-          <div className={styles.all_statistic}>
-            <p className="text text_type_main-medium">
-              Выполнено за сегодня:
-            </p>
-            <p className="text text_type_digits-large">
-              {totalToday}
-            </p>
-          </div>
+          <p className="text text_type_main-medium mt-5">
+            Выполнено за все время:
+          </p>
+          <p className="text text_type_digits-large">
+            {total}
+          </p>
+          <p className="text text_type_main-medium mt-5">
+            Выполнено за сегодня:
+          </p>
+          <p className="text text_type_digits-large">
+            {totalToday}
+          </p>
         </div>
       </div>
     </div>
