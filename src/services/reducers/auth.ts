@@ -1,5 +1,4 @@
 import { TError } from './../../types/data';
-import { getCookie } from '../../utils/cookies'
 import {
    SET_AUTH_LOADING,
    SET_AUTH_ERROR,
@@ -48,7 +47,6 @@ export const authReducer = (state = initialState, action: TAuthActions): TAuthSt
             error: null,
          }
       case CLEAR_USER:
-         console.log("CLEAR_USERCLEAR_USER")
          return {
             ...initialState,
             isAuth: false
@@ -59,7 +57,6 @@ export const authReducer = (state = initialState, action: TAuthActions): TAuthSt
             isResponsedEmail: action.payload,
          }
       case SET_AUTH_ERROR:
-         console.log("SET_AUTH_ERRORSET_AUTH_ERROR")
          return {
             ...state,
             isLoading: false,

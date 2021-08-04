@@ -6,6 +6,7 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { IngredientCard } from '../ingredient-card/ingredient-card'
 import { getIngredientsSum } from '../../utils/get-ingredients-sum'
 import styles from './order-card.module.css'
+import { getFormatDate } from '../../utils/get-format-date '
 
 type TOrderCardProps = {
   order: TOrder,
@@ -24,6 +25,7 @@ export const OrderCard: FC<TOrderCardProps> = ({ order, onClick, status }) => {
     () => getIngredientsSum(ingredients, ingredientsIds),
     [ingredients, ingredientsIds]
   )
+  const formatedDate = useMemo(() => getFormatDate(createdAt), [createdAt])
 
   const images = useMemo(() => {
     let result: Array<string> = []
@@ -54,7 +56,7 @@ export const OrderCard: FC<TOrderCardProps> = ({ order, onClick, status }) => {
       <div className={`${styles.info} m-3`}>
         <p className="text text_type_digits-default">{number}</p>
         <p className="text text_type_main-default text_color_inactive">
-          {createdAt}
+          {formatedDate}
         </p>
       </div>
       <div className="p-3">
