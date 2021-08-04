@@ -59,4 +59,9 @@ padding: 12px 0;
    display: block;
    text-align: center;
 }
+.closeButton {
+   border: none;
+   background-color: transparent;
+   cursor: pointer;
+ }
 }

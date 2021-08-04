@@ -14,6 +14,7 @@ import { NotFound404 } from '../../pages/not-found-404'
 import { ConstructorLayout } from '../../layouts/constructor-layout'
 import { FeedLayout } from '../../layouts/feed-layout'
 import { wsFeedStart } from '../../services/actions/feed'
+import { MenuPage } from '../../pages/menu-page'
 
 export const App = () => {
 
@@ -33,6 +34,10 @@ export const App = () => {
       <Switch>
         <Route path={["/", "/ingredients/:id"]} exact={true}>
           <ConstructorLayout />
+        </Route>
+
+        <Route path="/menu" exact={true}>
+          <MenuPage />
         </Route>
 
         <PublicRoute path="/login" exact={true}>

@@ -1,6 +1,7 @@
 
 
 export const getFormatDate = (date: string): string => {
+   if (!date) return ""
 
    const formatedDate = new Intl.DateTimeFormat('ru-ru', {
       timeZoneName: 'short',

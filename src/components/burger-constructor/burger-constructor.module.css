@@ -27,6 +27,9 @@
   display: flex;
   margin-left: 32px;
 }
+.locked_block  span {
+  cursor: default;
+}
 .container {
   flex: 1;
   display: flex;
