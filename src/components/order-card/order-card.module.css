@@ -19,3 +19,14 @@
 .price {
   display: flex;
 }
+@media (max-width: 768px) {
+  .info > p {
+    font-size: 22px;
+  }
+  .info > p:last-child {
+    font-size: 14px;
+  }
+  .name > p {
+    font-size: 20px;
+  }
+}

@@ -1,5 +1,5 @@
-import { FC } from "react"
-import { NavLink } from "react-router-dom"
+import { FC, useCallback } from "react"
+import { NavLink, useHistory } from "react-router-dom"
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { MenuIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons"
 import logo from "../../images/logo.svg"
@@ -7,12 +7,35 @@ import styles from './app-header.module.css'
 
 export const AppHeader: FC = () => {
 
+   const history = useHistory()
+   const openMenu = useCallback((_id) => {
+      history.push({
+         pathname: `/menu`
+      })
+   }, [history])
+
+   const onClickGoHome = useCallback((_id) => {
+      history.push({
+         pathname: `/`
+      })
+   }, [history])
+
    return (
       <div className={styles.root}>
          <header className={`${styles.header} pt-5 pb-5`}>
             <div className={`${styles.mobile_header} pl-5 pr-5`}>
-               <img src={logo} alt="LOGO" />
-               <MenuIcon type="primary" />
+               <button
+                  className={styles.closeButton}
+                  onClick={onClickGoHome}
+               >
+                  <img src={logo} alt="LOGO" />
+               </button>
+               <button
+                  className={styles.closeButton}
+                  onClick={openMenu}
+               >
+                  <MenuIcon type="primary" />
+               </button>
             </div>
             <div className={styles.leftBlock}>
                <NavLink

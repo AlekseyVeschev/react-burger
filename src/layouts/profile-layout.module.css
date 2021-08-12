@@ -17,6 +17,9 @@
   border-radius: 50px;
   cursor: pointer;
 }
+.button:hover {
+  color: #F2F2F3;
+}
 .title {
   color: #8585AD;
   opacity: 0.4;
@@ -25,9 +28,17 @@
   text-decoration: none;
   color: #8585AD;
 }
+.link:hover {
+  text-decoration: none;
+  color: #F2F2F3;
+}
 .active {
   text-decoration: none;
   color: #F2F2F3;
 }
-
+@media (max-width: 768px) {
+.nav {
+  display: none;
+  }
+}
 

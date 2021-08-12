@@ -26,6 +26,12 @@
    color: #8585AD;
    padding: 12px;
  }
+.link:hover {
+   color: #F2F2F3;
+ }
+.link:hover > svg {
+   fill: #F2F2F3
+ }
 .active {
    color: #F2F2F3;
  }
@@ -59,4 +65,9 @@ padding: 12px 0;
    display: block;
    text-align: center;
 }
+.closeButton {
+   border: none;
+   background-color: transparent;
+   cursor: pointer;
+ }
 }

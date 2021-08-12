@@ -59,7 +59,7 @@ export const OrderCard: FC<TOrderCardProps> = ({ order, onClick, status }) => {
           {formatedDate}
         </p>
       </div>
-      <div className="p-3">
+      <div className={`${styles.name} p-3`}>
         <p className="text text_type_main-medium">
           {name}
         </p>

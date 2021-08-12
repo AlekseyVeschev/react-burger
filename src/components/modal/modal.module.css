@@ -23,3 +23,8 @@
   background-color: transparent;
   cursor: pointer;
 }
+@media (max-width: 768px) {
+.root {
+    display: none;
+  }
+}
