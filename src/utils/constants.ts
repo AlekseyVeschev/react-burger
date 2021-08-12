@@ -33,3 +33,7 @@ export const STATUS_TYPES_NAME = {
    [STATUS_TYPES.pending]: "Готовится",
    [STATUS_TYPES.done]: "Выполнен",
 }
+
+export const MS_IN_DAY = 60 * 60 * 24 * 1000;
+export const DAYS_MAP = ['сегодня', 'вчера']
+export const DAY_DECLENSION = ['день', 'дня', 'дней']

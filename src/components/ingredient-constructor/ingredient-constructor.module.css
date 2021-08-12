@@ -3,7 +3,10 @@
   align-items: center;
   cursor: move;
  }
- .void {
-  height: 20px ;
-  background-color: red;
+ .element :last-child {
+  display: flex;
+  flex: 1;
+ }
+ :global .constructor-element__text {
+  width: 100%;
  }

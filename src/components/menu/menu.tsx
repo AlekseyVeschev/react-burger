@@ -1,9 +1,9 @@
+import { FC, useCallback } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 import { CloseIcon, BurgerIcon, ProfileIcon, ListIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons"
-import styles from './menu-page.module.css'
-import { useCallback } from 'react'
+import styles from './menu.module.css'
 
-export const MenuPage = () => {
+export const Menu: FC = () => {
 
    const history = useHistory()
    const onClose = useCallback(() => {
@@ -25,7 +25,6 @@ export const MenuPage = () => {
          </header>
          <nav>
             <NavLink
-               exact
                to="/profile"
                className={`${styles.link} pl-2 pt-3 pb-3 `}
                activeClassName={styles.active}
@@ -36,6 +35,7 @@ export const MenuPage = () => {
                </p>
             </NavLink>
             <NavLink
+               exact
                to="/"
                className={`${styles.link} pl-2 pt-3 pb-3`}
                activeClassName={styles.active}

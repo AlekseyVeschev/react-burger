@@ -27,3 +27,14 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+@media (max-width: 768px) {
+  .card_wrapper {
+    width: 28px;
+    min-width: 28px;
+    max-height: 28px;
+    margin-left: -8px;
+}
+.image {
+  max-height: 28px;
+}
+}

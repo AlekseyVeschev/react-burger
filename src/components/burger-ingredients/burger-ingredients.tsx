@@ -105,7 +105,7 @@ export const BurgerIngredients = () => {
          )}
          <footer className={`${styles.footer} pt-4 pb-4 pr-1`}>
             <p className="text text_type_digits-default mr-2">
-               420
+               0
             </p>
             <CurrencyIcon type="primary" />
             <Button
